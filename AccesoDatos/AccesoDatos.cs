@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace AccesoDatos
 {
-    public class AccesoDatos
+    public class Acceso
     {
         private SqlConnection conexion;
         private SqlCommand comando;
@@ -17,11 +17,16 @@ namespace AccesoDatos
             get { return lector; }
         }
 
-        public AccesoDatos()
+        public Acceso()
         {
-            conexion = new SqlConnection("server=TOMAS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
+
+            // CONEXION FRANCISCO
+            conexion = new SqlConnection("server=.; database=CATALOGO_P3_DB; integrated security=true;");
             comando = new SqlCommand();
-            
+            // CONEXION TOMAS
+            //conexion = new SqlConnection("server=TOMAS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
+            //comando = new SqlCommand();
+
         }
 
         public void setearConsulta(string consulta)
@@ -51,5 +56,5 @@ namespace AccesoDatos
             conexion.Close();
         }
 
-        }
+    }
 }

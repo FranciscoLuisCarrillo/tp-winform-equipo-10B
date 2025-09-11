@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AccesoDatos;
 
 namespace negocio
 {
@@ -13,30 +14,47 @@ namespace negocio
             public List<Articulo> listar()
             {
                 List<Articulo> lista = new List<Articulo>();
-                SqlConnection conexion = new SqlConnection();
-                SqlCommand comando = new SqlCommand();
-                SqlDataReader lector;
-                try
-                {               ///lo primero es la el servidor donde se conecta, lo segundo es la base de datos y lo tercero es la seguridad
-                    conexion.ConnectionString = "Server=TOMAS; Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;";
-                    comando.CommandType = System.Data.CommandType.Text;
-                    comando.CommandText = "SELECT A.Id,A.Codigo,A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C Where M.Id = A.Id And C.Id = M.Id";
-                    comando.Connection = conexion;
 
-                    conexion.Open();
-                    lector = comando.ExecuteReader();
-                    while (lector.Read())
+                // INSTANCIA DE CLASE DE ACCESO A DATOS
+                Acceso conectar = new Acceso();
+
+                // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
+                //SqlConnection conexion = new SqlConnection();
+                //SqlCommand comando = new SqlCommand();
+                //SqlDataReader lector;
+
+                try
+                {
+                    // ESTA LOGICA SE MIGRA A CLASE ACCESODATOS
+                    ///lo primero es la el servidor donde se conecta, lo segundo es la base de datos y lo tercero es la seguridad
+                    //conexion.ConnectionString = "Server=TOMAS; Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;";
+                    //comando.CommandType = System.Data.CommandType.Text;
+                    //comando.CommandText = "SELECT A.Id,A.Codigo,A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C Where M.Id = A.Id And C.Id = M.Id";
+                    //comando.Connection = conexion;
+
+                    // GENERO LA CONSULTA PARA PASARLE AL CONECTOR
+                    string consulta = "SELECT A.Id,A.Codigo,A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C Where M.Id = A.Id And C.Id = M.Id";
+                    conectar.setearConsulta(consulta);
+
+
+                    conectar.ejecutarLectura();
+                    // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
+                    //conexion.Open();
+                    //lector = comando.ExecuteReader();
+
+                    // SE CAMBIO LA LOGICA PARA PASAR LA CONECCION MEDIANTE LA CLASE ACCESODATOS
+                    while (conectar.Lector.Read())
                     {
                         Articulo aux = new Articulo();
-                        aux.Id = lector.GetInt32(0);
-                        aux.Codigo = (string)lector["Codigo"];
-                        aux.Nombre = (string)lector["Nombre"];
-                        aux.Descripcion = (string)lector["Descripcion"];
+                        aux.Id = conectar.Lector.GetInt32(0);
+                        aux.Codigo = (string)conectar.Lector["Codigo"];
+                        aux.Nombre = (string)conectar.Lector["Nombre"];
+                        aux.Descripcion = (string)conectar.Lector["Descripcion"];
                         aux.Marca = new Marca();
-                        aux.Marca.Descripcion = (string)lector["Marca"];
+                        aux.Marca.Descripcion = (string)conectar.Lector["Marca"];
                         aux.Categoria = new Categoria();
-                        aux.Categoria.Descripcion = (string)lector["Categoria"];
-                        aux.Precio = (decimal)lector["Precio"];
+                        aux.Categoria.Descripcion = (string)conectar.Lector["Categoria"];
+                        aux.Precio = (decimal)conectar.Lector["Precio"];
                         lista.Add(aux);
                     }
                     return lista;
@@ -47,7 +65,7 @@ namespace negocio
                 }
                 finally
                 {
-                    conexion.Close();
+                    conectar.cerrarConexion();
                 }
             }
             
