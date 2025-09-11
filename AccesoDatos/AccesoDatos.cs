@@ -26,7 +26,9 @@ namespace AccesoDatos
             // CONEXION TOMAS
             //conexion = new SqlConnection("server=TOMAS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
             //comando = new SqlCommand();
-            
+            //CONEXION JOAQUIN
+            //conexion = new SqlConnection("server=JOAQUIN; database=CATALOGO_P3_DB; integrated security=true; TrustServerCertificate=True;");
+            //comando = new SqlCommand();
 
         }
 
