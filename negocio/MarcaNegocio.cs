@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dominio;
-using AccesoDatos;
+//using AccesoDatos;
+using Acceso = AccesoDatos.Acceso;
 namespace negocio
 {
     public class MarcaNegocio
@@ -12,7 +13,7 @@ namespace negocio
         public List<Marca> listar()
         {
             List<Marca> lista = new List<Marca>();
-            AccesoDatos.AccesoDatos datos = new AccesoDatos.AccesoDatos();
+            Acceso datos = new Acceso();
             try
             {
                 datos.setearConsulta("Select Id, Descripcion from MARCAS");
