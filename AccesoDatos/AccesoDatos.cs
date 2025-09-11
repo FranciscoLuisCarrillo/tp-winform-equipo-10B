@@ -12,11 +12,16 @@ namespace AccesoDatos
         private SqlConnection conexion;
         private SqlCommand comando;
         private SqlDataReader lector;
+        public SqlDataReader Lector
+        {
+            get { return lector; }
+        }
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
+            conexion = new SqlConnection("server=TOMAS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
             comando = new SqlCommand();
+            
         }
 
         public void setearConsulta(string consulta)
@@ -37,10 +42,14 @@ namespace AccesoDatos
             {
                 throw ex;
             }
-            finally
-            {
-                conexion.Close();
-            }
-            }
+        }
+
+        public void cerrarConexion()
+        {
+            if (lector != null)
+                lector.Close();
+            conexion.Close();
+        }
+
         }
 }

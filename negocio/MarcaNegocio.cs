@@ -4,13 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dominio;
+using AccesoDatos;
 namespace negocio
 {
-    internal class MarcaNegocio
+    public class MarcaNegocio
     {
         public List<Marca> listar()
         {
-            return new List<Marca>();
-        }
+            List<Marca> lista = new List<Marca>();
+            AccesoDatos.AccesoDatos datos = new AccesoDatos.AccesoDatos();
+            try
+            {
+                datos.setearConsulta("Select Id, Descripcion from MARCAS");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Marca aux = new Marca();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            }
     }
 }

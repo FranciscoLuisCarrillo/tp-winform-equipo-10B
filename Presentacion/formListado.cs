@@ -15,6 +15,7 @@ namespace Presentacion
     public partial class formListado : Form
     {
         private List<Articulo> listaArticulos;
+        private List<Marca> listaMarca;
         public formListado()
         {
             InitializeComponent();
@@ -23,9 +24,14 @@ namespace Presentacion
         private void formListado_Load(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+
             {
-                listaArticulos = negocio.listar();
-                dgvArticulos.DataSource = listaArticulos;
+                //listaArticulos = negocio.listar();
+                //dgvArticulos.DataSource = listaArticulos;
+                listaMarca = marcaNegocio.listar();
+                dgvArticulos.DataSource = listaMarca;
+
             }
                
 
