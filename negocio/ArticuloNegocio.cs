@@ -68,10 +68,36 @@ namespace negocio
                     conectar.cerrarConexion();
                 }
             }
-            
-            public void agregar(Articulo nuevo)
-        {
 
+        public void agregar(Articulo nuevo)
+
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+
+                string consulta = "INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio)";
+                conectar.setearConsulta(consulta);
+
+                conectar.setAtributo("@codigo", nuevo.Codigo);
+                conectar.setAtributo("@nombre", nuevo.Nombre);
+                conectar.setAtributo("@descripcion", nuevo.Descripcion);
+                conectar.setAtributo("@idMarca", nuevo.Marca.Id);
+                conectar.setAtributo("@idCategoria", nuevo.Categoria.Id);
+                conectar.setAtributo("@precio", nuevo.Precio); 
+
+                conectar.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+
+
+            }
         }
         public void modificar(Articulo articulo)
         {

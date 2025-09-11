@@ -35,6 +35,11 @@ namespace AccesoDatos
             comando.CommandText = consulta;
         }
 
+        public void setAtributo(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+        } 
+
         public void ejecutarLectura()
         {
             comando.Connection = conexion;
