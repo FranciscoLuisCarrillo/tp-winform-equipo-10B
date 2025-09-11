@@ -76,10 +76,10 @@ namespace negocio
             Acceso conectar = new Acceso();
             try
             {
-
+                // pruebas de logica agnosticas a las ventanas
                 string consulta = "INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio)";
                 conectar.setearConsulta(consulta);
-
+                // prueba de seteo
                 conectar.setAtributo("@codigo", nuevo.Codigo);
                 conectar.setAtributo("@nombre", nuevo.Nombre);
                 conectar.setAtributo("@descripcion", nuevo.Descripcion);

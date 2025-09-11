@@ -26,6 +26,7 @@ namespace AccesoDatos
             // CONEXION TOMAS
             //conexion = new SqlConnection("server=TOMAS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
             //comando = new SqlCommand();
+            
 
         }
 
@@ -35,6 +36,8 @@ namespace AccesoDatos
             comando.CommandText = consulta;
         }
 
+
+        // MEtodo para pasar parametros a la consulta y generar pruebas
         public void setAtributo(string nombre, object valor)
         {
             comando.Parameters.AddWithValue(nombre, valor);
