@@ -40,5 +40,11 @@ namespace Presentacion
             formAgregar formAgregar = new formAgregar();
             formAgregar.ShowDialog();
         }
+
+        private void buscarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formBuscar formBuscar = new formBuscar();
+            formBuscar.ShowDialog();
+        }
     }
 }
