@@ -66,10 +66,8 @@ namespace Presentacion
             nuevo.Descripcion = txtDescrpcion.Text;
             nuevo.Precio = precio;
 
-            nuevo.Marca = (Marca)boxMarca.SelectedItem;
-            nuevo.Categoria = (Categoria)boxCategoria.SelectedItem;
-
-            MessageBox.Show("Articulo agregado exitosamente.");
+            nuevo.IdMarca = ((Marca)boxMarca.SelectedItem).Id;
+            nuevo.IdCategoria = ((Categoria)boxCategoria.SelectedItem).Id;
 
 
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -85,6 +83,6 @@ namespace Presentacion
 
         }
 
-      
+        
     }
 }

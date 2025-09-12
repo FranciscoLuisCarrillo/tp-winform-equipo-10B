@@ -46,5 +46,11 @@ namespace Presentacion
             formBuscar formBuscar = new formBuscar();
             formBuscar.ShowDialog();
         }
+
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formEliminar formEliminar = new formEliminar();
+            formEliminar.ShowDialog();
+        }
     }
 }
