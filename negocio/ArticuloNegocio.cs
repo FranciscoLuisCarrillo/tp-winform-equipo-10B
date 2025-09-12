@@ -35,7 +35,7 @@ namespace negocio
                     //comando.Connection = conexion;
 
                     // GENERO LA CONSULTA PARA PASARLE AL CONECTOR
-                    string consulta = "SELECT A.Id,A.Codigo,A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C Where M.Id = A.Id And C.Id = M.Id";
+                    string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria,A.Precio FROM ARTICULOS A INNER JOIN MARCAS M ON A.IdMarca = M.Id INNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id;";
                     conectar.setearConsulta(consulta);
 
 
@@ -84,8 +84,8 @@ namespace negocio
                 conectar.setAtributo("@codigo", nuevo.Codigo);
                 conectar.setAtributo("@nombre", nuevo.Nombre);
                 conectar.setAtributo("@descripcion", nuevo.Descripcion);
-                conectar.setAtributo("@idMarca", nuevo.Marca.Id);
-                conectar.setAtributo("@idCategoria", nuevo.Categoria.Id);
+                conectar.setAtributo("@idMarca", nuevo.IdMarca);
+                conectar.setAtributo("@idCategoria", nuevo.IdCategoria);
                 conectar.setAtributo("@precio", nuevo.Precio); 
 
                 conectar.ejecutarLectura();
