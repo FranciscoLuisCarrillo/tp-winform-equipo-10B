@@ -81,9 +81,9 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label4.Location = new System.Drawing.Point(249, 178);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 17);
+            this.label4.Size = new System.Drawing.Size(47, 17);
             this.label4.TabIndex = 3;
-            this.label4.Text = "IdMarca";
+            this.label4.Text = "Marca";
             // 
             // label5
             // 
@@ -101,9 +101,9 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label6.Location = new System.Drawing.Point(249, 204);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 17);
+            this.label6.Size = new System.Drawing.Size(69, 17);
             this.label6.TabIndex = 5;
-            this.label6.Text = "idCategoria";
+            this.label6.Text = "Categoria";
             // 
             // label7
             // 
