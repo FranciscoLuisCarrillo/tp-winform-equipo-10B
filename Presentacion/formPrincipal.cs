@@ -34,5 +34,11 @@ namespace Presentacion
             formListado formListado = new formListado(TipoListado.Categoria);
             formListado.ShowDialog();
         }
+
+        private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formAgregar formAgregar = new formAgregar();
+            formAgregar.ShowDialog();
+        }
     }
 }
