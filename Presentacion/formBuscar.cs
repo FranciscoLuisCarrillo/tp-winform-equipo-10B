@@ -53,7 +53,7 @@ namespace Presentacion
             if (decimal.TryParse(txtPrecio.Text, out decimal precio))
                 precioMax = precio;
 
-            // Llamamos al método de negocio que busca artículos según los filtros
+            
             ArticuloNegocio negocio = new ArticuloNegocio();
             
             //Falta crear la funcion buscar.

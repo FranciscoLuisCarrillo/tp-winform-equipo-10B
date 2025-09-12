@@ -188,6 +188,7 @@
             this.dgvResultados.Name = "dgvResultados";
             this.dgvResultados.Size = new System.Drawing.Size(449, 366);
             this.dgvResultados.TabIndex = 30;
+            this.dgvResultados.SelectionChanged += new System.EventHandler(this.dgvResultados_SelectionChanged);
             // 
             // formModificar
             // 

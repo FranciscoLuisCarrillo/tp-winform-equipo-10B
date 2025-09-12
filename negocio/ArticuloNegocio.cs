@@ -27,16 +27,16 @@ namespace negocio
 
                 try
                 {
-                    // ESTA LOGICA SE MIGRA A CLASE ACCESODATOS
-                    ///lo primero es la el servidor donde se conecta, lo segundo es la base de datos y lo tercero es la seguridad
-                    //conexion.ConnectionString = "Server=TOMAS; Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;";
-                    //comando.CommandType = System.Data.CommandType.Text;
-                    //comando.CommandText = "SELECT A.Id,A.Codigo,A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C Where M.Id = A.Id And C.Id = M.Id";
-                    //comando.Connection = conexion;
+                // ESTA LOGICA SE MIGRA A CLASE ACCESODATOS
+                ///lo primero es la el servidor donde se conecta, lo segundo es la base de datos y lo tercero es la seguridad
+                //conexion.ConnectionString = "Server=TOMAS; Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;";
+                //comando.CommandType = System.Data.CommandType.Text;
+                //comando.CommandText = "SELECT A.Id,A.Codigo,A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C Where M.Id = A.Id And C.Id = M.Id";
+                //comando.Connection = conexion;
 
-                    // GENERO LA CONSULTA PARA PASARLE AL CONECTOR
-                    string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria,A.Precio FROM ARTICULOS A INNER JOIN MARCAS M ON A.IdMarca = M.Id INNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id;";
-                    conectar.setearConsulta(consulta);
+                // GENERO LA CONSULTA PARA PASARLE AL CONECTOR
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio FROM ARTICULOS A;";
+                conectar.setearConsulta(consulta);
 
 
                     conectar.ejecutarLectura();
@@ -52,10 +52,8 @@ namespace negocio
                         aux.Codigo = (string)conectar.Lector["Codigo"];
                         aux.Nombre = (string)conectar.Lector["Nombre"];
                         aux.Descripcion = (string)conectar.Lector["Descripcion"];
-                        aux.Marca = new Marca();
-                        aux.Marca.Descripcion = (string)conectar.Lector["Marca"];
-                        aux.Categoria = new Categoria();
-                        aux.Categoria.Descripcion = (string)conectar.Lector["Categoria"];
+                        aux.IdMarca = (int)conectar.Lector["IdMarca"];
+                        aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
                         aux.Precio = (decimal)conectar.Lector["Precio"];
                         lista.Add(aux);
                     }

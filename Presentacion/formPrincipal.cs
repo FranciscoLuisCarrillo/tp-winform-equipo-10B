@@ -52,5 +52,11 @@ namespace Presentacion
             formEliminar formEliminar = new formEliminar();
             formEliminar.ShowDialog();
         }
+
+        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formModificar formModificar = new formModificar();
+            formModificar.ShowDialog();
+        }
     }
 }

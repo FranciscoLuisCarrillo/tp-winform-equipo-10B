@@ -31,8 +31,10 @@ namespace Presentacion
 
         private void formListado_Load(object sender, EventArgs e)
         {
+           
             switch (tipo)
             {
+                
                 case TipoListado.Articulo:
                     ArticuloNegocio negocio = new ArticuloNegocio();
                     listaArticulos = negocio.listar();
