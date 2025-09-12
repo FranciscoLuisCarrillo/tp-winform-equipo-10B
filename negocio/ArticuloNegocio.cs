@@ -124,8 +124,29 @@ namespace negocio
 
         public void modificar(Articulo articulo)
         {
+            Acceso conectar = new Acceso();
+            try
+            {
+                conectar.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Precio = @Precio WHERE Id = @Id");
+                conectar.setAtributo("@Codigo", articulo.Codigo);
+                conectar.setAtributo("@Nombre", articulo.Nombre);
+                conectar.setAtributo("@Descripcion", articulo.Descripcion);
+                conectar.setAtributo("@IdMarca", articulo.IdMarca);
+                conectar.setAtributo("@IdCategoria", articulo.IdCategoria);
+                conectar.setAtributo("@Precio", articulo.Precio);
+                conectar.setAtributo("@Id", articulo.Id);
+                conectar.ejecutarLectura();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
         }
-       
         }
     }
 
