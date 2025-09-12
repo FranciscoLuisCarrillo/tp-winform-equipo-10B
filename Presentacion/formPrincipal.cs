@@ -16,5 +16,23 @@ namespace Presentacion
         {
             InitializeComponent();
         }
+
+        private void listarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formListado formListado = new formListado(TipoListado.Articulo);
+            formListado.ShowDialog();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            formListado formListado = new formListado(TipoListado.Marca);
+            formListado.ShowDialog();
+        }
+
+        private void listarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            formListado formListado = new formListado(TipoListado.Categoria);
+            formListado.ShowDialog();
+        }
     }
 }

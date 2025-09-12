@@ -12,29 +12,51 @@ using negocio;
 
 namespace Presentacion
 {
+    public enum TipoListado
+    {
+        Articulo,
+        Marca,
+        Categoria
+    }
     public partial class formListado : Form
     {
+        private TipoListado tipo;
         private List<Articulo> listaArticulos;
         private List<Marca> listaMarca;
-        public formListado()
+        public formListado(TipoListado tipo)
         {
             InitializeComponent();
+            this.tipo = tipo;
         }
 
         private void formListado_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            MarcaNegocio marcaNegocio = new MarcaNegocio();
-
+            switch (tipo)
             {
-                //listaArticulos = negocio.listar();
-                //dgvArticulos.DataSource = listaArticulos;
-                listaMarca = marcaNegocio.listar();
-                dgvArticulos.DataSource = listaMarca;
+                case TipoListado.Articulo:
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    listaArticulos = negocio.listar();
+                    dgvArticulos.DataSource = listaArticulos;
+                    break;
 
+                case TipoListado.Marca:
+                    MarcaNegocio marcaNegocio = new MarcaNegocio();
+                    listaMarca = marcaNegocio.listar();
+                    dgvArticulos.DataSource = listaMarca;
+                    break;
+
+                /*
+                    case TipoListado.Categoria:
+                    CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                    listaCategoria = categoriaNegocio.listar();
+                    dgvArticulos.DataSource = listaCategoria;
+                    break;
+                */
             }
-               
+
 
         }
+
+        
     }
 }

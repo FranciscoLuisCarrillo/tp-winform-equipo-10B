@@ -7,7 +7,7 @@ using Acceso = AccesoDatos.Acceso;
 
 namespace negocio
 {
-    internal class CategoriaNegocio
+    public class CategoriaNegocio
     {
     }
 }
