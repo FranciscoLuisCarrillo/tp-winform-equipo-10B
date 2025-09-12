@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 //using AccesoDatos;
@@ -100,6 +101,29 @@ namespace negocio
 
             }
         }
+
+
+        // Elimina el dato de forma fisica en la DDBB (usar con cuidaod se pierde el registro)
+        public void eliminar(int id)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                string consulta = "DELETE FROM ARTICULOS WHERE Id = @Id";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@Id", id);
+                conectar.ejecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
+
         public void modificar(Articulo articulo)
         {
         }
