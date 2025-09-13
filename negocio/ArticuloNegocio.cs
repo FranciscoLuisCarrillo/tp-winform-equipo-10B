@@ -122,6 +122,43 @@ namespace negocio
             }
         }
 
+        public List<Articulo> buscarNombre (string nombre)
+        {
+            List<Articulo> lista = new List<Articulo>();
+            Acceso conectar = new Acceso();
+            try
+            {
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio FROM ARTICULOS A WHERE A.Nombre LIKE @Nombre";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@Nombre", "%" + nombre + "%");
+                conectar.ejecutarLectura();
+                while (conectar.Lector.Read())
+                {
+                    Articulo aux = new Articulo();
+                    aux.Id = conectar.Lector.GetInt32(0);
+                    aux.Codigo = (string)conectar.Lector["Codigo"];
+                    aux.Nombre = (string)conectar.Lector["Nombre"];
+                    aux.Descripcion = (string)conectar.Lector["Descripcion"];
+                    aux.IdMarca = (int)conectar.Lector["IdMarca"];
+                    aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
+                    aux.Precio = (decimal)conectar.Lector["Precio"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
+
+
+
+
         public void modificar(Articulo articulo)
         {
             Acceso conectar = new Acceso();
