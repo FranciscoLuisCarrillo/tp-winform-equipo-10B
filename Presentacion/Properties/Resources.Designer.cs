@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Drawing;
+
 namespace Presentacion.Properties
 {
 
@@ -33,6 +35,8 @@ namespace Presentacion.Properties
         internal Resources()
         {
         }
+
+        public static Image SinImagen { get; internal set; }
 
         /// <summary>
         ///   Devuelve la instancia ResourceManager almacenada en caché utilizada por esta clase.
