@@ -59,6 +59,23 @@ namespace Presentacion
 
         }
 
-        
+        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
+        {
+            Articulo Seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            cargarImagen(Seleccionado.Imagenes[0].ImagenUrl);
+            pbArticulo.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+        private void cargarImagen(string image)
+        {
+            try
+            {
+                pbArticulo.Load(image);
+            }
+            catch (Exception)
+            {
+                pbArticulo.Load("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
+            }
+        }
     }
 }
+
