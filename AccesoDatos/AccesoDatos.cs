@@ -36,6 +36,7 @@ namespace AccesoDatos
         {
             comando.CommandType = System.Data.CommandType.Text;
             comando.CommandText = consulta;
+            comando.Parameters.Clear();// esto lo agregue para limpiar los parametros y que no me tire error al ejecutar otra consulta
         }
 
 
@@ -52,6 +53,22 @@ namespace AccesoDatos
             {
                 conexion.Open();
                 lector = comando.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// Creado para ejecucion de acciones como insert, delete y update
+        public int ejecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                return comando.ExecuteNonQuery();// devuelve la cantidad de filas afectadas
             }
             catch (Exception ex)
             {

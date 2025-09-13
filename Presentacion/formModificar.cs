@@ -23,8 +23,8 @@ namespace Presentacion
                 new Marca{ Id = 1, Descripcion = "Samsung" },
                 new Marca{ Id = 2, Descripcion = "Apple" },
                 new Marca{ Id = 3, Descripcion = "Sony" },
-                new Marca{ Id = 3, Descripcion = "Huawei" },
-                new Marca{ Id = 3, Descripcion = "Motorola" },
+                new Marca{ Id = 4, Descripcion = "Huawei" },
+                new Marca{ Id = 5, Descripcion = "Motorola" },
 
              };
 
@@ -46,8 +46,6 @@ namespace Presentacion
 
         private void formModificar_Load(object sender, EventArgs e)
         {
-
-            
             ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulos = negocio.listar();
             dgvResultados.DataSource = listaArticulos;

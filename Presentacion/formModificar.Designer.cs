@@ -81,6 +81,7 @@
             this.button1.TabIndex = 27;
             this.button1.Text = "Modificar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // txtPrecio
             // 

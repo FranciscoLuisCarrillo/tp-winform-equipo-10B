@@ -135,7 +135,12 @@ namespace negocio
                 conectar.setAtributo("@IdCategoria", articulo.IdCategoria);
                 conectar.setAtributo("@Precio", articulo.Precio);
                 conectar.setAtributo("@Id", articulo.Id);
-                conectar.ejecutarLectura();
+                
+                int filasAfectadas = conectar.ejecutarAccion();
+                if (filasAfectadas == 0) // Verifica si alguna fila fue afectada
+                {
+                    throw new Exception("No se encontró el artículo para modificar.");
+                }
 
             }
             catch (Exception ex)
