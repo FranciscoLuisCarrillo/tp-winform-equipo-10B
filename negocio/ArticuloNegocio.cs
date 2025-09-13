@@ -35,39 +35,76 @@ namespace negocio
                 //comando.Connection = conexion;
 
                 // GENERO LA CONSULTA PARA PASARLE AL CONECTOR
-                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio FROM ARTICULOS A;";
-                conectar.setearConsulta(consulta);
+                conectar.setearConsulta(@"
+            SELECT  a.Id,
+                    a.Codigo,
+                    a.Nombre,
+                    a.Descripcion,
+                    a.IdMarca,
+                    a.IdCategoria,
+                    a.Precio,
+                    i.Id        AS IdImagen,
+                    i.ImagenUrl AS UrlImagen
+            FROM ARTICULOS a
+            LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id
+            ORDER BY a.Id, i.Id;");
 
+                conectar.ejecutarLectura();
 
-                    conectar.ejecutarLectura();
-                    // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
-                    //conexion.Open();
-                    //lector = comando.ExecuteReader();
+                Articulo actual = null;// El articulo actual que estoy leyendo
+                int ultimoId = -1; // El id del último artículo que leí
 
-                    // SE CAMBIO LA LOGICA PARA PASAR LA CONECCION MEDIANTE LA CLASE ACCESODATOS
-                    while (conectar.Lector.Read())
+                // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
+                //conexion.Open();
+                //lector = comando.ExecuteReader();
+
+                // SE CAMBIO LA LOGICA PARA PASAR LA CONECCION MEDIANTE LA CLASE ACCESODATOS
+                while (conectar.Lector.Read())
+                {
+                    int idActual = (int)conectar.Lector["Id"]; //el id del artículo que estoy leyendo
+
+                    // si cambió el artículo, creo uno nuevo y lo agrego a la lista
+                    if (idActual != ultimoId)
                     {
-                        Articulo aux = new Articulo();
-                        aux.Id = conectar.Lector.GetInt32(0);
-                        aux.Codigo = (string)conectar.Lector["Codigo"];
-                        aux.Nombre = (string)conectar.Lector["Nombre"];
-                        aux.Descripcion = (string)conectar.Lector["Descripcion"];
-                        aux.IdMarca = (int)conectar.Lector["IdMarca"];
-                        aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
-                        aux.Precio = (decimal)conectar.Lector["Precio"];
-                        lista.Add(aux);
+                        actual = new Articulo //creamos un nuevo articulo
+                        {
+                            Id = idActual,
+                            Codigo = (string)conectar.Lector["Codigo"],
+                            Nombre = (string)conectar.Lector["Nombre"],
+                            Descripcion = (string)conectar.Lector["Descripcion"],
+                            IdMarca = (int)conectar.Lector["IdMarca"],
+                            IdCategoria = (int)conectar.Lector["IdCategoria"],
+                            Precio = (decimal)conectar.Lector["Precio"],
+                            Imagenes = new List<Imagen>()
+                        };
+
+                        lista.Add(actual);
+                        ultimoId = idActual;// actualizo el id del último artículo leído
                     }
-                    return lista;
+
+                    // si esta fila trae imagen, la agrego al artículo actual
+                    if (!(conectar.Lector["IdImagen"] is DBNull))
+                    {
+                        actual.Imagenes.Add(new Imagen //agregamos la imagen a la lista de imagenes del articulo actual
+                        {
+                            Id = (int)conectar.Lector["IdImagen"],
+                            IdArticulo = idActual,
+                            ImagenUrl = (string)conectar.Lector["UrlImagen"]
+                        });
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    conectar.cerrarConexion();
-                }
+
+                return lista;
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
 
         public void agregar(Articulo nuevo)
 
