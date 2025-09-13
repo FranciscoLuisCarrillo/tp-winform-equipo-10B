@@ -156,7 +156,39 @@ namespace negocio
             }
         }
 
-
+        public List<Articulo> filtrarMarca (int idMarca)
+        {
+            List<Articulo> lista = new List<Articulo>();
+            Acceso conectar = new Acceso();
+            try
+            {
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio FROM ARTICULOS A WHERE A.IdMarca = @IdMarca";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@IdMarca", idMarca);
+                conectar.ejecutarLectura();
+                while (conectar.Lector.Read())
+                {
+                    Articulo aux = new Articulo();
+                    aux.Id = conectar.Lector.GetInt32(0);
+                    aux.Codigo = (string)conectar.Lector["Codigo"];
+                    aux.Nombre = (string)conectar.Lector["Nombre"];
+                    aux.Descripcion = (string)conectar.Lector["Descripcion"];
+                    aux.IdMarca = (int)conectar.Lector["IdMarca"];
+                    aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
+                    aux.Precio = (decimal)conectar.Lector["Precio"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
 
 
         public void modificar(Articulo articulo)
