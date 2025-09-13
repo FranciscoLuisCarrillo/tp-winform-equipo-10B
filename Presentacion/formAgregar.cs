@@ -22,8 +22,8 @@ namespace Presentacion
                 new Marca{ Id = 1, Descripcion = "Samsung" },
                 new Marca{ Id = 2, Descripcion = "Apple" },
                 new Marca{ Id = 3, Descripcion = "Sony" },
-                new Marca{ Id = 3, Descripcion = "Huawei" },
-                new Marca{ Id = 3, Descripcion = "Motorola" },
+                new Marca{ Id = 4, Descripcion = "Huawei" },
+                new Marca{ Id = 5, Descripcion = "Motorola" },
 
              };
 
@@ -60,29 +60,70 @@ namespace Presentacion
                 MessageBox.Show("Ingrese un precio válido.");
                 return;
             }
-            Articulo nuevo = new Articulo();
-            nuevo.Codigo = txtCodigo.Text;
-            nuevo.Nombre = txtNombre.Text;
-            nuevo.Descripcion = txtDescrpcion.Text;
-            nuevo.Precio = precio;
-
-            nuevo.IdMarca = ((Marca)boxMarca.SelectedItem).Id;
-            nuevo.IdCategoria = ((Categoria)boxCategoria.SelectedItem).Id;
-
-
-            ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                negocio.agregar(nuevo);
+
+                Articulo nuevo = new Articulo();
+                {
+
+                    nuevo.Codigo = txtCodigo.Text.Trim();
+                    nuevo.Nombre = txtNombre.Text.Trim();
+                    nuevo.Descripcion = txtDescrpcion.Text.Trim();
+                    nuevo.IdMarca = ((Marca)boxMarca.SelectedItem).Id;
+                    nuevo.IdCategoria = ((Categoria)boxCategoria.SelectedItem).Id;
+                    nuevo.Precio = precio;
+                    nuevo.Imagenes = lstUrls.Items.Cast<string>()
+                                                  .Select(url => new Imagen { ImagenUrl = url })
+                                                  .ToList();
+
+                }
+
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                int idNuevo = negocio.agregar(nuevo);
+
                 MessageBox.Show("Artículo agregado correctamente.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al agregar artículo: " + ex.Message);
             }
+            finally
+            {
+                this.Close();
+            }
 
         }
 
-       
+        private void btnAgregarUrl_Click(object sender, EventArgs e)
+        {
+            var url = txtUrl.Text?.Trim(); //
+            if (string.IsNullOrEmpty(url))
+            {
+                MessageBox.Show("Ingrese una URL válida.");
+                return;
+            }
+
+            if(!lstUrls.Items.Cast<string>().Any(u => u.Equals(url, StringComparison.OrdinalIgnoreCase))) //Esto es para verificar si la url ya existe en la lista evitando mayusculas o minusculas
+            {
+                lstUrls.Items.Add(url);
+                txtUrl.Clear();
+            }
+            else
+            {
+                MessageBox.Show("La URL ya ha sido agregada.");
+            }
+        }
+
+        private void btnQuitarUrl_Click(object sender, EventArgs e)
+        {
+            if (lstUrls.SelectedItem != null)
+            {
+                lstUrls.Items.Remove(lstUrls.SelectedItem);
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una URL para quitar.");
+            }
+        }
     }
 }

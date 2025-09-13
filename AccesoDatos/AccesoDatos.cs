@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace AccesoDatos
 {
@@ -60,6 +61,22 @@ namespace AccesoDatos
             }
         }
 
+        public object ejecutarEscalar()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                    conexion.Open();
+                return comando.ExecuteScalar();
+            }
+            catch (Exception) { throw; }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                    conexion.Close();
+            }
+        }
 
         /// Creado para ejecucion de acciones como insert, delete y update
         public int ejecutarAccion()

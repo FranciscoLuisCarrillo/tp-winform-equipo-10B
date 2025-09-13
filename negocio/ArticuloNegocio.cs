@@ -106,15 +106,20 @@ namespace negocio
             }
         }
 
-        public void agregar(Articulo nuevo)
+        public int agregar(Articulo nuevo)
 
         {
             Acceso conectar = new Acceso();
+            var urls = nuevo.Imagenes.Select(img => img.ImagenUrl).ToList(); // Extrae las URLs de las imágenes
+            int idInsertado = 0;
             try
             {
+
                 // pruebas de logica agnosticas a las ventanas
-                string consulta = "INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio)";
-                conectar.setearConsulta(consulta);
+                conectar.setearConsulta(@"
+            INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio)
+            OUTPUT INSERTED.Id
+            VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio);");
                 // prueba de seteo
                 conectar.setAtributo("@codigo", nuevo.Codigo);
                 conectar.setAtributo("@nombre", nuevo.Nombre);
@@ -123,7 +128,9 @@ namespace negocio
                 conectar.setAtributo("@idCategoria", nuevo.IdCategoria);
                 conectar.setAtributo("@precio", nuevo.Precio); 
 
-                conectar.ejecutarLectura();
+                conectar.ejecutarAccion();
+                idInsertado = (int)conectar.ejecutarEscalar();
+                nuevo.Id = idInsertado; // asigna el ID generado al objeto Articulo
             }
             catch (Exception ex)
             {
@@ -133,11 +140,37 @@ namespace negocio
             {
                 conectar.cerrarConexion();
 
-
             }
+
+            if (urls.Count > 0)
+            {
+                AgregarImagenes(idInsertado, urls);
+            }
+            return idInsertado;
         }
 
-
+        public void AgregarImagenes(int articuloId, List<string> imagenUrls) //Metodo para agregar las imagenes
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                foreach (var url in imagenUrls) // Recorremos cada url de la lista y la insertamos en la bd
+                {
+                    conectar.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
+                    conectar.setAtributo("@IdArticulo", articuloId);
+                    conectar.setAtributo("@ImagenUrl", url);
+                    conectar.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
         // Elimina el dato de forma fisica en la DDBB (usar con cuidaod se pierde el registro)
         public void eliminar(int id)
         {
@@ -147,7 +180,7 @@ namespace negocio
                 string consulta = "DELETE FROM ARTICULOS WHERE Id = @Id";
                 conectar.setearConsulta(consulta);
                 conectar.setAtributo("@Id", id);
-                conectar.ejecutarLectura();
+                conectar.ejecutarAccion();
             }
             catch (Exception ex)
             {

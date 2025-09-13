@@ -84,10 +84,12 @@ namespace Presentacion
             if (_imagenesActuales.Count == 0)
             {
                 cargarImagen(null); // muestra placeholder
+                lblIndex.Text = "0/0";
                 return;
             }
 
-            cargarImagen(_imagenesActuales[_idx].ImagenUrl);
+            cargarImagen(_imagenesActuales[_idx].ImagenUrl); // Carga la imagen actual
+            lblIndex.Text = $"{_idx + 1}/{_imagenesActuales.Count}"; // Muestra el índice actual
         }
 
 
@@ -95,7 +97,7 @@ namespace Presentacion
         {
             try
             {
-                if (string.IsNullOrEmpty(image))
+                if (string.IsNullOrEmpty(image))// esto se fija si la url es nula o vacia muestra el placeholder
                 {
                     pbArticulo.Load("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
                     pbArticulo.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -119,8 +121,8 @@ namespace Presentacion
         {
             if (_imagenesActuales.Count == 0) return;
 
-            _idx++;
-            if (_idx >= _imagenesActuales.Count) _idx = 0;
+            _idx++;// Incrementamos el indice   
+            if (_idx >= _imagenesActuales.Count) _idx = 0; // chequeamos si supera el maximo de imagenes y lo reiniciamos
             MostrarImagenActual();
         }
 
@@ -129,8 +131,8 @@ namespace Presentacion
             if (_imagenesActuales.Count == 0) return;
 
             _idx--;
-            if (_idx < 0) _idx = _imagenesActuales.Count - 1;
-            MostrarImagenActual();
+            if (_idx < 0) _idx = _imagenesActuales.Count - 1; //Aca hacemos al reves chequeamos si el indice es menor a 0 y lo llevamos al maximo
+            MostrarImagenActual(); 
         }
     }
 }

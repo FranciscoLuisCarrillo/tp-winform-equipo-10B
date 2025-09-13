@@ -42,6 +42,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.boxMarca = new System.Windows.Forms.ComboBox();
             this.boxCategoria = new System.Windows.Forms.ComboBox();
+            this.txtUrl = new System.Windows.Forms.TextBox();
+            this.urlLbl = new System.Windows.Forms.Label();
+            this.lstUrls = new System.Windows.Forms.ListBox();
+            this.btnAgregarUrl = new System.Windows.Forms.Button();
+            this.btnQuitarUrl = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -145,7 +150,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(296, 304);
+            this.button1.Location = new System.Drawing.Point(296, 391);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(177, 23);
             this.button1.TabIndex = 13;
@@ -180,11 +185,61 @@
             this.boxCategoria.Size = new System.Drawing.Size(147, 21);
             this.boxCategoria.TabIndex = 15;
             // 
+            // txtUrl
+            // 
+            this.txtUrl.Location = new System.Drawing.Point(388, 269);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(147, 20);
+            this.txtUrl.TabIndex = 16;
+            // 
+            // urlLbl
+            // 
+            this.urlLbl.AutoSize = true;
+            this.urlLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.urlLbl.Location = new System.Drawing.Point(257, 272);
+            this.urlLbl.Name = "urlLbl";
+            this.urlLbl.Size = new System.Drawing.Size(40, 17);
+            this.urlLbl.TabIndex = 17;
+            this.urlLbl.Text = "Url/ls";
+            // 
+            // lstUrls
+            // 
+            this.lstUrls.FormattingEnabled = true;
+            this.lstUrls.Location = new System.Drawing.Point(252, 314);
+            this.lstUrls.Name = "lstUrls";
+            this.lstUrls.Size = new System.Drawing.Size(314, 43);
+            this.lstUrls.TabIndex = 18;
+            // 
+            // btnAgregarUrl
+            // 
+            this.btnAgregarUrl.Location = new System.Drawing.Point(541, 269);
+            this.btnAgregarUrl.Name = "btnAgregarUrl";
+            this.btnAgregarUrl.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarUrl.TabIndex = 19;
+            this.btnAgregarUrl.Text = "Agregar Url";
+            this.btnAgregarUrl.UseVisualStyleBackColor = true;
+            this.btnAgregarUrl.Click += new System.EventHandler(this.btnAgregarUrl_Click);
+            // 
+            // btnQuitarUrl
+            // 
+            this.btnQuitarUrl.Location = new System.Drawing.Point(622, 269);
+            this.btnQuitarUrl.Name = "btnQuitarUrl";
+            this.btnQuitarUrl.Size = new System.Drawing.Size(75, 23);
+            this.btnQuitarUrl.TabIndex = 20;
+            this.btnQuitarUrl.Text = "Quitar Url";
+            this.btnQuitarUrl.UseVisualStyleBackColor = true;
+            this.btnQuitarUrl.Click += new System.EventHandler(this.btnQuitarUrl_Click);
+            // 
             // formAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 503);
+            this.Controls.Add(this.btnQuitarUrl);
+            this.Controls.Add(this.btnAgregarUrl);
+            this.Controls.Add(this.lstUrls);
+            this.Controls.Add(this.urlLbl);
+            this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.boxCategoria);
             this.Controls.Add(this.boxMarca);
             this.Controls.Add(this.button1);
@@ -222,5 +277,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox boxMarca;
         private System.Windows.Forms.ComboBox boxCategoria;
+        private System.Windows.Forms.TextBox txtUrl;
+        private System.Windows.Forms.Label urlLbl;
+        private System.Windows.Forms.ListBox lstUrls;
+        private System.Windows.Forms.Button btnQuitarUrl;
+        private System.Windows.Forms.Button btnAgregarUrl;
     }
 }
