@@ -38,25 +38,25 @@ namespace negocio
             }
         }
 
-            public void agregarCategoria(Categoria nueva)
+        public void agregarCategoria(Categoria nueva)
+        {
+            Acceso conectar = new Acceso();
+            try
             {
-                Acceso conectar = new Acceso();
-                try
-                {
-                    string consulta = "INSERT INTO CATEGORIAS (Descripcion) VALUES (@descripcion)";
-                    conectar.setearConsulta(consulta);
-                    conectar.setAtributo("@descripcion", nueva.Descripcion);
-                    conectar.ejecutarAccion();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    conectar.cerrarConexion();
-                }
+                string consulta = "INSERT INTO CATEGORIAS (Descripcion) VALUES (@descripcion)";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@descripcion", nueva.Descripcion);
+                conectar.ejecutarAccion();
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
 
         public void eliminarCategoriaPorID(int id)
         {
@@ -76,10 +76,32 @@ namespace negocio
             {
                 conectar.cerrarConexion();
             }
+
+
+
         }
 
+        public void eliminarCategoriaPorNombre(string nombreCategoria)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
 
+                string consulta = "DELETE FROM CATEGORIAS WHERE UPPER(Descripcion) = @nombre";
+                conectar.setearConsulta(consulta);
+                // Convertimos el parámetro a mayúsculas para que coincida con la lógica de la consulta.
+                conectar.setAtributo("@nombre", nombreCategoria.ToUpper());
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
 
+        }
     }
-   
 }
