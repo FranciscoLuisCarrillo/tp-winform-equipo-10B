@@ -71,6 +71,12 @@
     <Compile Include="formEliminar.Designer.cs">
       <DependentUpon>formEliminar.cs</DependentUpon>
     </Compile>
+    <Compile Include="formEliminarMarcaCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formEliminarMarcaCat.Designer.cs">
+      <DependentUpon>formEliminarMarcaCat.cs</DependentUpon>
+    </Compile>
     <Compile Include="formListado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,12 @@
     </Compile>
     <Compile Include="formModificar.Designer.cs">
       <DependentUpon>formModificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formModificarMarcaCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formModificarMarcaCat.Designer.cs">
+      <DependentUpon>formModificarMarcaCat.cs</DependentUpon>
     </Compile>
     <Compile Include="formPrincipal.cs">
       <SubType>Form</SubType>
@@ -109,6 +121,9 @@
     <EmbeddedResource Include="formEliminar.resx">
       <DependentUpon>formEliminar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formEliminarMarcaCat.resx">
+      <DependentUpon>formEliminarMarcaCat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formListado.resx">
       <DependentUpon>formListado.cs</DependentUpon>
     </EmbeddedResource>
@@ -117,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formModificar.resx">
       <DependentUpon>formModificar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formModificarMarcaCat.resx">
+      <DependentUpon>formModificarMarcaCat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formPrincipal.resx">
       <DependentUpon>formPrincipal.cs</DependentUpon>

@@ -72,5 +72,20 @@ namespace Presentacion
             formAgregarMarcaCategoria.tipo = "Categoria";
             formAgregarMarcaCategoria.ShowDialog();
         }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            formEliminarMarcaCat formEliminar = new formEliminarMarcaCat("Marca");
+            formEliminar.ShowDialog();
+        }
+
+        private void eliminarToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            formEliminarMarcaCat formEliminar = new formEliminarMarcaCat("Categoria");
+            formEliminar.ShowDialog();
+        }
+
+
+
     }
 }
