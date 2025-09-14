@@ -21,9 +21,7 @@ namespace test
            
             try
             {
-                // --- INICIO DE LA PRUEBA DE AGREGAR ---
-
-                // 1.Creo Ob articulo
+                
                 Console.WriteLine("Creando nuevo artículo de prueba...");
                 Articulo nuevo = new Articulo();
                 nuevo.Codigo = "CONS-01";
@@ -31,20 +29,20 @@ namespace test
                 nuevo.Descripcion = "Este artículo fue agregado para probar la conexión y la lógica de negocio.";
                 nuevo.Precio = 999.99m;
 
-                // Creamos objetos mara Marca y Categoria
+        
                 nuevo.Marca = new Marca();
                 nuevo.Marca.Id = 3;
                 nuevo.Categoria = new Categoria();
                 nuevo.Categoria.Id = 2;
 
-                // 2. Genero nuevo articulo a la DDBB
+                
                 Console.WriteLine("Intentando agregar el artículo a la base de datos...");
                 negocio.agregar(nuevo);
 
-                // 3. Mensaje de exito
-                Console.WriteLine("¡Éxito! El artículo fue agregado correctamente.");
+               
+                Console.WriteLine("artículo agregado correctamente.");
 
-                // --- FIN DE LA PRUEBA ---
+             
             }
             catch (Exception ex)
             {
@@ -59,7 +57,11 @@ namespace test
             }
             */
 
-            MarcaNegocio negocio = new MarcaNegocio();
+
+
+
+            //MarcaNegocio negocio = new MarcaNegocio();
+            /*
             try
             {
                 Console.WriteLine("Agregando una nueva marca...");
@@ -77,6 +79,37 @@ namespace test
 
             Console.ReadKey();
         }
+            */
+
+
+            MarcaNegocio negocio = new MarcaNegocio();
+            try
+            {
+                
+                Console.WriteLine("prueba de delete");
+                Marca testDelete = new Marca();
+                testDelete.Descripcion = "delete";
+                negocio.agregar(testDelete);
+                Console.WriteLine("Marca agregada.");
+
+                string nombreDelete = "delete";
+                Console.WriteLine("prueba delete: " + nombreDelete);
+
+                negocio.eliminarMarcaPorNombre(nombreDelete);
+
+                Console.WriteLine("funciona");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.ToString());
+            }
+
+            Console.ReadKey();
+        }
+
+
+
     }
-    }
+ }
+
 

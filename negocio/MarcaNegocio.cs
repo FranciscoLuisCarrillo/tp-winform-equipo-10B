@@ -39,29 +39,6 @@ namespace negocio
         
     }
 
-
-
-    public void eliminarMarcaPorID(int id)
-        {
-            Acceso conectar = new Acceso();
-            try
-            {
-                // La consulta ahora es un DELETE directo sobre la tabla.
-                string consulta = "DELETE FROM MARCAS WHERE Id = @id";
-                conectar.setearConsulta(consulta);
-                conectar.setAtributo("@id", id);
-                conectar.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conectar.cerrarConexion();
-            }
-        }
-
         public void agregar(Marca nueva)
         {
 
@@ -88,6 +65,52 @@ namespace negocio
                 conectar.cerrarConexion();
             }
         }
+
+        public void eliminarMarcaPorID(int id)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                // La consulta ahora es un DELETE directo sobre la tabla.
+                string consulta = "DELETE FROM MARCAS WHERE Id = @id";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@id", id);
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
+
+        public void eliminarMarcaPorNombre(string nombreMarca)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+
+                string consulta = "DELETE FROM MARCAS WHERE UPPER(Descripcion) = @nombre";
+                conectar.setearConsulta(consulta);
+
+
+                conectar.setAtributo("@nombre", nombreMarca.ToUpper());
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
+
+       
 
 
 
