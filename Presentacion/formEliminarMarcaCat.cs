@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,56 +26,53 @@ namespace Presentacion
             label1.Text = "Eliminar " + tipo;
             if(tipo == "Marca")
             {
-                negocio.MarcaNegocio marcaNegocio = new negocio.MarcaNegocio();
-                List<dominio.Marca> listaMarca = marcaNegocio.listar();
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+
+                List<Marca> listaMarca = marcaNegocio.listar();
                 dgv.DataSource = listaMarca;
             }
             else
             {
-                negocio.CategoriaNegocio categoriaNegocio = new negocio.CategoriaNegocio();
-                List<dominio.Categoria> listaCategoria = categoriaNegocio.listar();
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                List<Categoria> listaCategoria = categoriaNegocio.listar();
                 dgv.DataSource = listaCategoria;
             }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (dgv.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Por favor, seleccione un elemento de la lista.");
-                return;
-            }
+        { 
 
-            int id = Convert.ToInt32(dgv.SelectedRows[0].Cells["ID"].Value);
-
-            if (tipo == "Marca")
+           if(tipo == "Marca")
             {
-                negocio.MarcaNegocio marcaNegocio = new negocio.MarcaNegocio();
-                try
-                {
-                    marcaNegocio.eliminarMarcaPorID(id);
-                    MessageBox.Show("Marca eliminada con éxito");
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                Marca seleccionado;
+                seleccionado = (Marca)dgv.CurrentRow.DataBoundItem;
+                marcaNegocio.eliminarMarcaPorID(seleccionado.Id);
             }
             else
             {
-                negocio.CategoriaNegocio categoriaNegocio = new negocio.CategoriaNegocio();
-                try
-                {
-                    categoriaNegocio.eliminarCategoriaPorID(id);
-                    MessageBox.Show("Categoría eliminada con éxito");
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                Categoria seleccionado;
+                seleccionado = (Categoria)dgv.CurrentRow.DataBoundItem;
+                categoriaNegocio.eliminarCategoriaPorID(seleccionado.Id);
             }
+            MessageBox.Show("Eliminado exitosamente");
+            if (tipo == "Marca")
+            {
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                List<Marca> listaMarca = marcaNegocio.listar();
+                dgv.DataSource = listaMarca;
+            }
+            else
+            {
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                List<Categoria> listaCategoria = categoriaNegocio.listar();
+                dgv.DataSource = listaCategoria;
+            }
+
+
         }
+
     }
 }
+
