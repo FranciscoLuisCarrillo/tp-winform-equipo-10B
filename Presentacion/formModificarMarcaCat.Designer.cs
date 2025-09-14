@@ -52,6 +52,7 @@
             this.button1.TabIndex = 47;
             this.button1.Text = "Modificar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtDescrpcion
             // 
@@ -93,6 +94,7 @@
             this.Controls.Add(this.label8);
             this.Name = "formModificarMarcaCat";
             this.Text = "formModificarMarcaCat";
+            this.Load += new System.EventHandler(this.formModificarMarcaCat_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

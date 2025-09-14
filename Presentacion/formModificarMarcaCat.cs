@@ -18,7 +18,7 @@ namespace Presentacion
             InitializeComponent();
             this.tipo = tipo;
         }
-        private void formModificarMarcaCat_Load(object sender, EventArgs e)
+        private void formModificarMarcaCat_Load_1(object sender, EventArgs e)
         {
             label8.Text = "Modificar " + tipo;
             if (tipo == "Marca")
@@ -32,6 +32,32 @@ namespace Presentacion
                 negocio.CategoriaNegocio categoriaNegocio = new negocio.CategoriaNegocio();
                 List<dominio.Categoria> listaCategoria = categoriaNegocio.listar();
                 dgvResultados.DataSource = listaCategoria;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (tipo == "Marca")
+            {
+                dominio.Marca seleccionado = (dominio.Marca)dgvResultados.CurrentRow.DataBoundItem;
+                seleccionado.Descripcion = txtDescrpcion.Text;
+                negocio.MarcaNegocio marcaNegocio = new negocio.MarcaNegocio();
+                marcaNegocio.modificarMarca(seleccionado);
+                MessageBox.Show("Modificado con exito");
+                List<dominio.Marca> listaMarca = marcaNegocio.listar();
+                dgvResultados.DataSource = listaMarca;
+                txtDescrpcion.Clear();
+            }
+            else
+            {
+                dominio.Categoria seleccionado = (dominio.Categoria)dgvResultados.CurrentRow.DataBoundItem;
+                seleccionado.Descripcion = txtDescrpcion.Text;
+                negocio.CategoriaNegocio categoriaNegocio = new negocio.CategoriaNegocio();
+                categoriaNegocio.modificarCategoria(seleccionado);
+                MessageBox.Show("Modificado con exito");
+                List<dominio.Categoria> listaCategoria = categoriaNegocio.listar();
+                dgvResultados.DataSource = listaCategoria;
+                txtDescrpcion.Clear();
             }
         }
     }

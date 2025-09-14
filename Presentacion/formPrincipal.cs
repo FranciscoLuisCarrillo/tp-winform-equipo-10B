@@ -85,6 +85,16 @@ namespace Presentacion
             formEliminar.ShowDialog();
         }
 
-        
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            formModificarMarcaCat formModificar = new formModificarMarcaCat("Marca");
+            formModificar.ShowDialog();
+        }
+
+        private void eliminarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            formModificarMarcaCat formModificar = new formModificarMarcaCat("Categoria");
+            formModificar.ShowDialog();
+        }
     }
 }
