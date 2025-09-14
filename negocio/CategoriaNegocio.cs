@@ -38,14 +38,34 @@ namespace negocio
             }
         }
 
-            public void agregar(Categoria nueva)
+            public void agregarCategoria(Categoria nueva)
+            {
+                Acceso conectar = new Acceso();
+                try
+                {
+                    string consulta = "INSERT INTO CATEGORIAS (Descripcion) VALUES (@descripcion)";
+                    conectar.setearConsulta(consulta);
+                    conectar.setAtributo("@descripcion", nueva.Descripcion);
+                    conectar.ejecutarAccion();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conectar.cerrarConexion();
+                }
+            }
+
+        public void eliminarCategoriaPorID(int id)
         {
             Acceso conectar = new Acceso();
             try
             {
-                string consulta = "INSERT INTO CATEGORIAS (Descripcion) VALUES (@descripcion)";
+                string consulta = "DELETE FROM CATEGORIAS WHERE Id = @id";
                 conectar.setearConsulta(consulta);
-                conectar.setAtributo("@descripcion", nueva.Descripcion);
+                conectar.setAtributo("@id", id);
                 conectar.ejecutarAccion();
             }
             catch (Exception ex)

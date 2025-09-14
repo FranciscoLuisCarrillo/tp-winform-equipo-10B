@@ -89,7 +89,7 @@ namespace test
                 Console.WriteLine("prueba de delete");
                 Marca testDelete = new Marca();
                 testDelete.Descripcion = "delete";
-                negocio.agregar(testDelete);
+                negocio.agregarMarca(testDelete);
                 Console.WriteLine("Marca agregada.");
 
                 string nombreDelete = "delete";

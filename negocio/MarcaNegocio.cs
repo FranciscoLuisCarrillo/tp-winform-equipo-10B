@@ -39,7 +39,7 @@ namespace negocio
         
     }
 
-        public void agregar(Marca nueva)
+        public void agregarMarca(Marca nueva)
         {
 
             Acceso conectar = new Acceso();
