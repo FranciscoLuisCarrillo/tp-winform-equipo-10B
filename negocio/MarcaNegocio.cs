@@ -36,8 +36,9 @@ namespace negocio
                 datos.cerrarConexion();
             }
 
-            }
+        
     }
+
 
 
     public void eliminarMarcaPorID(int id)
@@ -61,8 +62,37 @@ namespace negocio
             }
         }
 
+        public void agregar(Marca nueva)
+        {
+
+            Acceso conectar = new Acceso();
+            try
+            {
+
+                string consulta = "INSERT INTO MARCAS (Descripcion) VALUES (@descripcion)";
+                conectar.setearConsulta(consulta);
+
+
+                conectar.setAtributo("@descripcion", nueva.Descripcion);
+
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+
+                conectar.cerrarConexion();
+            }
+        }
+
+
 
 
 
 
     }
+}

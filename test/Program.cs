@@ -12,6 +12,9 @@ namespace test
     {
         static void Main(string[] args)
         {
+
+
+            /*
             // instancia de negocio.            
             ArticuloNegocio negocio = new ArticuloNegocio();
 
@@ -54,6 +57,26 @@ namespace test
                 Console.WriteLine("\nPrueba finalizada. Presiona cualquier tecla para salir...");
                 Console.ReadKey();
             }
+            */
+
+            MarcaNegocio negocio = new MarcaNegocio();
+            try
+            {
+                Console.WriteLine("Agregando una nueva marca...");
+                Marca nueva = new Marca();
+                nueva.Descripcion = "Nvidia"; // Nombre de la nueva marca
+
+                negocio.agregar(nueva);
+
+                Console.WriteLine("¡Marca agregada exitosamente!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.ToString());
+            }
+
+            Console.ReadKey();
         }
     }
-}
+    }
+
