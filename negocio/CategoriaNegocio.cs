@@ -103,5 +103,25 @@ namespace negocio
             }
 
         }
+        public void modificarCategoria(Categoria categoria)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                string consulta = "UPDATE CATEGORIAS SET Descripcion = @descripcion WHERE Id = @id";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@descripcion", categoria.Descripcion);
+                conectar.setAtributo("@id", categoria.Id);
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
     }
 }

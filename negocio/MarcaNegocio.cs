@@ -110,12 +110,26 @@ namespace negocio
             }
         }
 
-       
-
-
-
-
-
+        public void modificarMarca(Marca marca)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                string consulta = "UPDATE MARCAS SET Descripcion = @descripcion WHERE Id = @id";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@descripcion", marca.Descripcion);
+                conectar.setAtributo("@id", marca.Id);
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
 
     }
 }
