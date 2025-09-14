@@ -12,7 +12,7 @@ namespace negocio
     {
 
         public List<Categoria> listar()
-            {
+        {
             List<Categoria> lista = new List<Categoria>();
             Acceso datos = new Acceso();
             try
@@ -36,10 +36,30 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
-
-
-
-
         }
+
+            public void agregar(Categoria nueva)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                string consulta = "INSERT INTO CATEGORIAS (Descripcion) VALUES (@descripcion)";
+                conectar.setearConsulta(consulta);
+                conectar.setAtributo("@descripcion", nueva.Descripcion);
+                conectar.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
+
+
+
     }
+   
 }
