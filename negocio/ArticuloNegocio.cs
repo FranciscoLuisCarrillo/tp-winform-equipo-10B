@@ -128,7 +128,7 @@ namespace negocio
                 conectar.setAtributo("@idCategoria", nuevo.IdCategoria);
                 conectar.setAtributo("@precio", nuevo.Precio); 
 
-                conectar.ejecutarAccion();
+            
                 idInsertado = (int)conectar.ejecutarEscalar();
                 nuevo.Id = idInsertado; // asigna el ID generado al objeto Articulo
             }
@@ -281,6 +281,41 @@ namespace negocio
                     throw new Exception("No se encontró el artículo para modificar.");
                 }
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
+        }
+
+        public void modificarImagenes(Articulo articulo)
+        {
+            modificar(articulo); //Modificamos los datos del articulo primero
+            var urls = (articulo.Imagenes ?? new List<Imagen>()) // Aca nos aseguramos que la lista no sea nula
+                    .Select(i => i.ImagenUrl)
+                    .Where(u => !string.IsNullOrWhiteSpace(u))
+                    .Select(u => u.Trim())
+                    .ToList();
+            Acceso conectar = new Acceso();
+
+            try
+            {
+                // Luego eliminamos las imágenes existentes
+                conectar.setearConsulta("DELETE FROM IMAGENES WHERE IdArticulo = @IdArticulo");
+                conectar.setAtributo("@IdArticulo", articulo.Id);
+                conectar.ejecutarAccion();
+                // Luego, agregamos las nuevas imágenes
+                foreach (var imagen in articulo.Imagenes)
+                {
+                    conectar.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
+                    conectar.setAtributo("@IdArticulo", articulo.Id);
+                    conectar.setAtributo("@ImagenUrl", imagen.ImagenUrl);
+                    conectar.ejecutarAccion();
+                }
             }
             catch (Exception ex)
             {

@@ -43,6 +43,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvResultados = new System.Windows.Forms.DataGridView();
+            this.txtUrlMod = new System.Windows.Forms.TextBox();
+            this.lblUrlMod = new System.Windows.Forms.Label();
+            this.lstUrlMod = new System.Windows.Forms.ListBox();
+            this.btnAgregarUrlMod = new System.Windows.Forms.Button();
+            this.btnQuitarUrlMod = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,7 +80,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(514, 325);
+            this.button1.Location = new System.Drawing.Point(547, 399);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(177, 23);
             this.button1.TabIndex = 27;
@@ -191,11 +196,61 @@
             this.dgvResultados.TabIndex = 30;
             this.dgvResultados.SelectionChanged += new System.EventHandler(this.dgvResultados_SelectionChanged);
             // 
+            // txtUrlMod
+            // 
+            this.txtUrlMod.Location = new System.Drawing.Point(606, 277);
+            this.txtUrlMod.Name = "txtUrlMod";
+            this.txtUrlMod.Size = new System.Drawing.Size(147, 20);
+            this.txtUrlMod.TabIndex = 31;
+            // 
+            // lblUrlMod
+            // 
+            this.lblUrlMod.AutoSize = true;
+            this.lblUrlMod.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblUrlMod.Location = new System.Drawing.Point(470, 280);
+            this.lblUrlMod.Name = "lblUrlMod";
+            this.lblUrlMod.Size = new System.Drawing.Size(40, 17);
+            this.lblUrlMod.TabIndex = 32;
+            this.lblUrlMod.Text = "Url/ls";
+            // 
+            // lstUrlMod
+            // 
+            this.lstUrlMod.FormattingEnabled = true;
+            this.lstUrlMod.Location = new System.Drawing.Point(467, 300);
+            this.lstUrlMod.Name = "lstUrlMod";
+            this.lstUrlMod.Size = new System.Drawing.Size(286, 56);
+            this.lstUrlMod.TabIndex = 33;
+            // 
+            // btnAgregarUrlMod
+            // 
+            this.btnAgregarUrlMod.Location = new System.Drawing.Point(759, 275);
+            this.btnAgregarUrlMod.Name = "btnAgregarUrlMod";
+            this.btnAgregarUrlMod.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarUrlMod.TabIndex = 34;
+            this.btnAgregarUrlMod.Text = "Agregar";
+            this.btnAgregarUrlMod.UseVisualStyleBackColor = true;
+            this.btnAgregarUrlMod.Click += new System.EventHandler(this.btnAgregarUrlMod_Click);
+            // 
+            // btnQuitarUrlMod
+            // 
+            this.btnQuitarUrlMod.Location = new System.Drawing.Point(759, 333);
+            this.btnQuitarUrlMod.Name = "btnQuitarUrlMod";
+            this.btnQuitarUrlMod.Size = new System.Drawing.Size(75, 23);
+            this.btnQuitarUrlMod.TabIndex = 35;
+            this.btnQuitarUrlMod.Text = "Quitar";
+            this.btnQuitarUrlMod.UseVisualStyleBackColor = true;
+            this.btnQuitarUrlMod.Click += new System.EventHandler(this.btnQuitarUrlMod_Click);
+            // 
             // formModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(840, 521);
+            this.Controls.Add(this.btnQuitarUrlMod);
+            this.Controls.Add(this.btnAgregarUrlMod);
+            this.Controls.Add(this.lstUrlMod);
+            this.Controls.Add(this.lblUrlMod);
+            this.Controls.Add(this.txtUrlMod);
             this.Controls.Add(this.dgvResultados);
             this.Controls.Add(this.boxCategoria);
             this.Controls.Add(this.boxMarca);
@@ -237,5 +292,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvResultados;
+        private System.Windows.Forms.TextBox txtUrlMod;
+        private System.Windows.Forms.Label lblUrlMod;
+        private System.Windows.Forms.ListBox lstUrlMod;
+        private System.Windows.Forms.Button btnAgregarUrlMod;
+        private System.Windows.Forms.Button btnQuitarUrlMod;
     }
 }

@@ -84,12 +84,17 @@ namespace AccesoDatos
             comando.Connection = conexion;
             try
             {
-                conexion.Open();
+                if(conexion.State != ConnectionState.Open)
+                    conexion.Open();
                 return comando.ExecuteNonQuery();// devuelve la cantidad de filas afectadas
             }
             catch (Exception ex)
             {
                 throw ex;
+            }finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                    conexion.Close();
             }
         }
 

@@ -62,9 +62,12 @@ namespace Presentacion
             seleccionado.Precio = decimal.Parse(txtPrecio.Text);
             seleccionado.IdMarca = (int)boxMarca.SelectedValue;
             seleccionado.IdCategoria = (int)boxCategoria.SelectedValue;
+            seleccionado.Imagenes = lstUrlMod.Items.Cast<string>()
+               .Select(u => new Imagen { IdArticulo = seleccionado.Id, ImagenUrl = u })
+               .ToList();
 
             // Llamar al método modificar existente
-            new ArticuloNegocio().modificar(seleccionado);
+            new ArticuloNegocio().modificarImagenes(seleccionado);
 
             // Recargar DataGridView
             dgvResultados.DataSource = new ArticuloNegocio().listar();
@@ -95,6 +98,47 @@ namespace Presentacion
                 txtPrecio.Text = seleccionado.Precio.ToString();
                 boxMarca.SelectedValue = seleccionado.IdMarca;
                 boxCategoria.SelectedValue = seleccionado.IdCategoria;
+
+                lstUrlMod.Items.Clear();
+                if (seleccionado.Imagenes != null)
+                {
+                    foreach (var img in seleccionado.Imagenes)
+                    {
+                        lstUrlMod.Items.Add(img.ImagenUrl);
+                    }
+                }
+        }
+        }
+
+        private void btnAgregarUrlMod_Click(object sender, EventArgs e)
+        {
+            var u = txtUrlMod.Text?.Trim();
+            if (string.IsNullOrEmpty(u))
+            {
+                MessageBox.Show("Ingrese una URL válida.");
+                return;
+            }
+            if (!lstUrlMod.Items.Cast<string>().Any(url => url.Equals(u, StringComparison.OrdinalIgnoreCase)))
+            {
+                lstUrlMod.Items.Add(u);
+                txtUrlMod.Clear();
+                txtUrlMod.Focus();
+            }
+            else
+            {
+                MessageBox.Show("La URL ya existe en la lista.");
+            }
+        }
+
+        private void btnQuitarUrlMod_Click(object sender, EventArgs e)
+        {
+            if (lstUrlMod.SelectedItem != null)
+            {
+                lstUrlMod.Items.Remove(lstUrlMod.SelectedItem);
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una URL para eliminar.");
             }
         }
     }
