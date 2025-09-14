@@ -19,6 +19,7 @@ namespace Presentacion
             InitializeComponent();
             List<Marca> marcas = new List<Marca>
             {
+                new Marca {Id = 0, Descripcion = "" },
                 new Marca{ Id = 1, Descripcion = "Samsung" },
                 new Marca{ Id = 2, Descripcion = "Apple" },
                 new Marca{ Id = 3, Descripcion = "Sony" },
@@ -32,7 +33,8 @@ namespace Presentacion
             boxMarca.ValueMember = "Id";
 
             List<Categoria> categorias = new List<Categoria>
-            {
+            { 
+                new Categoria { Id = 0, Descripcion = "" },
                 new Categoria{ Id = 1, Descripcion = "Celulares" },
                 new Categoria{ Id = 2, Descripcion = "Televisores" },
                 new Categoria{ Id = 3, Descripcion = "Media" },
@@ -46,20 +48,22 @@ namespace Presentacion
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string nombre = txtNombre.Text.Trim();
-            int? idMarca = boxMarca.SelectedIndex != -1 ? (int?)boxMarca.SelectedValue : null;
-            int? idCategoria = boxCategoria.SelectedIndex != -1 ? (int?)boxCategoria.SelectedValue : null;
+            int? idMarca = null;
+            int? idCategoria = null;
             decimal? precioMax = null;
 
             if (decimal.TryParse(txtPrecio.Text, out decimal precio))
                 precioMax = precio;
+            if(boxMarca.SelectedIndex > 0)
+                idMarca = (int)boxMarca.SelectedValue;
+            if (boxCategoria.SelectedIndex > 0)
+                idCategoria = (int)boxCategoria.SelectedValue;
 
-            
             ArticuloNegocio negocio = new ArticuloNegocio();
-            
-            //Falta crear la funcion buscar.
+            List<Articulo> resultados = negocio.Buscar(nombre, idMarca, idCategoria, precioMax);
 
-            //List<Articulo> resultados = negocio.Buscar(nombre, idMarca, idCategoria, precioMax);
-            //dgvResultados.DataSource = resultados;
+            dgvResultados.DataSource = null; 
+            dgvResultados.DataSource = resultados;
         }
     }
 }

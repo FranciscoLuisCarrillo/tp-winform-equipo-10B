@@ -134,6 +134,8 @@ namespace Presentacion
             if (_idx < 0) _idx = _imagenesActuales.Count - 1; //Aca hacemos al reves chequeamos si el indice es menor a 0 y lo llevamos al maximo
             MostrarImagenActual(); 
         }
+
+
     }
 }
 

@@ -25,13 +25,13 @@ namespace Presentacion
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            formListado formListado = new formListado(TipoListado.Marca);
+            formListadoMarcaCat formListado = new formListadoMarcaCat("Marca");
             formListado.ShowDialog();
         }
 
         private void listarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            formListado formListado = new formListado(TipoListado.Categoria);
+            formListadoMarcaCat formListado = new formListadoMarcaCat("Categoria");
             formListado.ShowDialog();
         }
 
@@ -57,6 +57,20 @@ namespace Presentacion
         {
             formModificar formModificar = new formModificar();
             formModificar.ShowDialog();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            formAgregarMarcaCat formAgregarMarcaCategoria = new formAgregarMarcaCat();
+            formAgregarMarcaCategoria.tipo = "Marca";
+            formAgregarMarcaCategoria.ShowDialog();
+        }
+
+        private void agregarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            formAgregarMarcaCat formAgregarMarcaCategoria = new formAgregarMarcaCat();
+            formAgregarMarcaCategoria.tipo = "Categoria";
+            formAgregarMarcaCategoria.ShowDialog();
         }
     }
 }

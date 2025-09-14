@@ -49,8 +49,15 @@
     <Compile Include="formAgregar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formAgregar.Designer.cs">
+    <Compile Include=".Designer.cs">
       <DependentUpon>formAgregar.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAgregarMarcaCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAgregarMarcaCat.Designer.cs">
+      <DependentUpon>formAgregarMarcaCat.cs</DependentUpon>
     </Compile>
     <Compile Include="formBuscar.cs">
       <SubType>Form</SubType>
@@ -70,6 +77,12 @@
     <Compile Include="formListado.Designer.cs">
       <DependentUpon>formListado.cs</DependentUpon>
     </Compile>
+    <Compile Include="formListadoMarcaCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formListadoMarcaCat.Designer.cs">
+      <DependentUpon>formListadoMarcaCat.cs</DependentUpon>
+    </Compile>
     <Compile Include="formModificar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +100,9 @@
     <EmbeddedResource Include="formAgregar.resx">
       <DependentUpon>formAgregar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formAgregarMarcaCat.resx">
+      <DependentUpon>formAgregarMarcaCat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formBuscar.resx">
       <DependentUpon>formBuscar.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formListado.resx">
       <DependentUpon>formListado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formListadoMarcaCat.resx">
+      <DependentUpon>formListadoMarcaCat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formModificar.resx">
       <DependentUpon>formModificar.cs</DependentUpon>

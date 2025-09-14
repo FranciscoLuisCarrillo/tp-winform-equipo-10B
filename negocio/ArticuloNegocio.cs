@@ -192,16 +192,44 @@ namespace negocio
             }
         }
 
-            public List<Articulo> buscarNombre (string nombre)
+        public List<Articulo> Buscar(string nombre, int? idMarca, int? idCategoria, decimal? precioMax)
         {
             List<Articulo> lista = new List<Articulo>();
             Acceso conectar = new Acceso();
+
             try
             {
-                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio FROM ARTICULOS A WHERE A.Nombre LIKE @Nombre";
+                string consulta = "SELECT Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio " +
+                                  "FROM ARTICULOS WHERE 1=1";
+
+                if (!string.IsNullOrEmpty(nombre))
+                    consulta += " AND Nombre LIKE @Nombre";
+
+                if (idMarca.HasValue)
+                    consulta += " AND IdMarca = @IdMarca";
+
+                if (idCategoria.HasValue)
+                    consulta += " AND IdCategoria = @IdCategoria";
+
+                if (precioMax.HasValue)
+                    consulta += " AND Precio <= @PrecioMax";
+
                 conectar.setearConsulta(consulta);
-                conectar.setAtributo("@Nombre", "%" + nombre + "%");
+
+                if (!string.IsNullOrEmpty(nombre))
+                    conectar.setAtributo("@Nombre", "%" + nombre + "%");
+
+                if (idMarca.HasValue)
+                    conectar.setAtributo("@IdMarca", idMarca.Value);
+
+                if (idCategoria.HasValue)
+                    conectar.setAtributo("@IdCategoria", idCategoria.Value);
+
+                if (precioMax.HasValue)
+                    conectar.setAtributo("@PrecioMax", precioMax.Value);
+
                 conectar.ejecutarLectura();
+
                 while (conectar.Lector.Read())
                 {
                     Articulo aux = new Articulo();
@@ -212,13 +240,11 @@ namespace negocio
                     aux.IdMarca = (int)conectar.Lector["IdMarca"];
                     aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
                     aux.Precio = (decimal)conectar.Lector["Precio"];
+
                     lista.Add(aux);
                 }
+
                 return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             finally
             {
@@ -226,7 +252,7 @@ namespace negocio
             }
         }
 
-            public List<Articulo> filtrarMarca (int idMarca)
+        public List<Articulo> filtrarMarca (int idMarca)
         {
             List<Articulo> lista = new List<Articulo>();
             Acceso conectar = new Acceso();
