@@ -36,18 +36,18 @@ namespace negocio
 
                 // GENERO LA CONSULTA PARA PASARLE AL CONECTOR
                 conectar.setearConsulta(@"
-            SELECT  a.Id,
-                    a.Codigo,
-                    a.Nombre,
-                    a.Descripcion,
-                    a.IdMarca,
-                    a.IdCategoria,
-                    a.Precio,
-                    i.Id        AS IdImagen,
-                    i.ImagenUrl AS UrlImagen
-            FROM ARTICULOS a
-            LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id
-            ORDER BY a.Id, i.Id;");
+                SELECT  a.Id,
+                        a.Codigo,
+                        a.Nombre,
+                        a.Descripcion,
+                        a.IdMarca,
+                        a.IdCategoria,
+                        a.Precio,
+                        i.Id        AS IdImagen,
+                        i.ImagenUrl AS UrlImagen
+                FROM ARTICULOS a
+                LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id
+                ORDER BY a.Id, i.Id;");
 
                 conectar.ejecutarLectura();
 
@@ -106,7 +106,7 @@ namespace negocio
             }
         }
 
-        public int agregar(Articulo nuevo)
+            public int agregar(Articulo nuevo)
 
         {
             Acceso conectar = new Acceso();
@@ -149,7 +149,7 @@ namespace negocio
             return idInsertado;
         }
 
-        public void AgregarImagenes(int articuloId, List<string> imagenUrls) //Metodo para agregar las imagenes
+            public void AgregarImagenes(int articuloId, List<string> imagenUrls) //Metodo para agregar las imagenes
         {
             Acceso conectar = new Acceso();
             try
@@ -172,7 +172,7 @@ namespace negocio
             }
         }
         // Elimina el dato de forma fisica en la DDBB (usar con cuidaod se pierde el registro)
-        public void eliminar(int id)
+            public void eliminar(int id)
         {
             Acceso conectar = new Acceso();
             try
@@ -192,7 +192,7 @@ namespace negocio
             }
         }
 
-        public List<Articulo> buscarNombre (string nombre)
+            public List<Articulo> buscarNombre (string nombre)
         {
             List<Articulo> lista = new List<Articulo>();
             Acceso conectar = new Acceso();
@@ -226,7 +226,7 @@ namespace negocio
             }
         }
 
-        public List<Articulo> filtrarMarca (int idMarca)
+            public List<Articulo> filtrarMarca (int idMarca)
         {
             List<Articulo> lista = new List<Articulo>();
             Acceso conectar = new Acceso();
@@ -261,7 +261,7 @@ namespace negocio
         }
 
 
-        public void modificar(Articulo articulo)
+            public void modificar(Articulo articulo)
         {
             Acceso conectar = new Acceso();
             try
@@ -294,3 +294,4 @@ namespace negocio
         }
     }
 
+    
