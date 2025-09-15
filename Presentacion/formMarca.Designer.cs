@@ -36,7 +36,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(294, 206);
+            this.button4.Location = new System.Drawing.Point(328, 236);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(123, 30);
             this.button4.TabIndex = 10;
@@ -46,7 +46,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(294, 155);
+            this.button3.Location = new System.Drawing.Point(328, 185);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(123, 30);
             this.button3.TabIndex = 9;
@@ -56,7 +56,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(294, 102);
+            this.button1.Location = new System.Drawing.Point(328, 132);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(123, 30);
             this.button1.TabIndex = 7;
@@ -68,7 +68,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(255, 35);
+            this.label1.Location = new System.Drawing.Point(285, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(198, 25);
             this.label1.TabIndex = 6;
@@ -85,6 +85,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Name = "formMarca";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formMarca";
             this.ResumeLayout(false);
             this.PerformLayout();
