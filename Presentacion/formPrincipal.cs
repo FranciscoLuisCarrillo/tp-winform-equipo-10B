@@ -17,84 +17,27 @@ namespace Presentacion
             InitializeComponent();
         }
 
-        private void listarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnArticulos_Click(object sender, EventArgs e)
         {
-            formListado formListado = new formListado(TipoListado.Articulo);
-            formListado.ShowDialog();
+            formArticulos formArticulos = new formArticulos();
+            formArticulos.ShowDialog();
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            formListadoMarcaCat formListado = new formListadoMarcaCat("Marca");
-            formListado.ShowDialog();
+            formMarca formMarca = new formMarca();
+            formMarca.ShowDialog();
         }
 
-        private void listarToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            formListadoMarcaCat formListado = new formListadoMarcaCat("Categoria");
-            formListado.ShowDialog();
+            formCategoria formCategoria = new formCategoria();
+            formCategoria.ShowDialog();
         }
 
-        private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            formAgregar formAgregar = new formAgregar();
-            formAgregar.ShowDialog();
-        }
-
-        private void buscarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            formBuscar formBuscar = new formBuscar();
-            formBuscar.ShowDialog();
-        }
-
-        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            formEliminar formEliminar = new formEliminar();
-            formEliminar.ShowDialog();
-        }
-
-        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            formModificar formModificar = new formModificar();
-            formModificar.ShowDialog();
-        }
-
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-            formAgregarMarcaCat formAgregarMarcaCategoria = new formAgregarMarcaCat();
-            formAgregarMarcaCategoria.tipo = "Marca";
-            formAgregarMarcaCategoria.ShowDialog();
-        }
-
-        private void agregarToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            formAgregarMarcaCat formAgregarMarcaCategoria = new formAgregarMarcaCat();
-            formAgregarMarcaCategoria.tipo = "Categoria";
-            formAgregarMarcaCategoria.ShowDialog();
-        }
-
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
-        {
-            formEliminarMarcaCat formEliminar = new formEliminarMarcaCat("Marca");
-            formEliminar.ShowDialog();
-        }
-
-        private void eliminarToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            formEliminarMarcaCat formEliminar = new formEliminarMarcaCat("Categoria");
-            formEliminar.ShowDialog();
-        }
-
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
-        {
-            formModificarMarcaCat formModificar = new formModificarMarcaCat("Marca");
-            formModificar.ShowDialog();
-        }
-
-        private void eliminarToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            formModificarMarcaCat formModificar = new formModificarMarcaCat("Categoria");
-            formModificar.ShowDialog();
+            Application.Exit();
         }
     }
 }

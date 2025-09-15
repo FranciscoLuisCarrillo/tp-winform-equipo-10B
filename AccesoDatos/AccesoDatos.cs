@@ -22,14 +22,14 @@ namespace AccesoDatos
         {
 
             // CONEXION FRANCISCO
-            conexion = new SqlConnection("server=.; database=CATALOGO_P3_DB; integrated security=true;");
-            comando = new SqlCommand();
+            //conexion = new SqlConnection("server=.; database=CATALOGO_P3_DB; integrated security=true;");
+            //comando = new SqlCommand();
             // CONEXION TOMAS
             //conexion = new SqlConnection("server=TOMAS;  Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;");
             //comando = new SqlCommand();
             //CONEXION JOAQUIN
-          //conexion = new SqlConnection("server=(localdb)\\MSSQLLocalDB ; database=CATALOGO_P3_DB; integrated security=true; TrustServerCertificate=True;");
-            //comando = new SqlCommand();
+            conexion = new SqlConnection("server=(localdb)\\MSSQLLocalDB ; database=CATALOGO_P3_DB; integrated security=true; TrustServerCertificate=True;");
+            comando = new SqlCommand();
 
         }
 
