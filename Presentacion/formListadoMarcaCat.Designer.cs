@@ -47,6 +47,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dgvMarcaCat);
             this.Name = "formListadoMarcaCat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formListadoMarcaCat";
             this.Load += new System.EventHandler(this.formListadoMarcaCat_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarcaCat)).EndInit();

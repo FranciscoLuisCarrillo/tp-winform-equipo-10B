@@ -72,6 +72,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgv);
             this.Name = "formEliminarMarcaCat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formEliminarMarcaCat";
             this.Load += new System.EventHandler(this.formEliminarMarcaCat_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();

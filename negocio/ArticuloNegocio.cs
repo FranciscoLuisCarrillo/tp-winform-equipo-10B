@@ -19,13 +19,12 @@ namespace negocio
 
                 // INSTANCIA DE CLASE DE ACCESO A DATOS
                 Acceso conectar = new Acceso();
+            // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
+            //SqlConnection conexion = new SqlConnection();
+            //SqlCommand comando = new SqlCommand();
+            //SqlDataReader lector;
 
-                // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
-                //SqlConnection conexion = new SqlConnection();
-                //SqlCommand comando = new SqlCommand();
-                //SqlDataReader lector;
-
-                try
+            try
                 {
                 // ESTA LOGICA SE MIGRA A CLASE ACCESODATOS
                 ///lo primero es la el servidor donde se conecta, lo segundo es la base de datos y lo tercero es la seguridad
@@ -41,13 +40,18 @@ namespace negocio
                         a.Nombre,
                         a.Descripcion,
                         a.IdMarca,
+                        m.Descripcion AS MarcaDescripcion,
                         a.IdCategoria,
+                        c.Descripcion AS CategoriaDescripcion,
                         a.Precio,
                         i.Id        AS IdImagen,
                         i.ImagenUrl AS UrlImagen
                 FROM ARTICULOS a
-                LEFT JOIN IMAGENES i ON i.IdArticulo = a.Id
+                LEFT JOIN MARCAS m     ON m.Id = a.IdMarca
+                LEFT JOIN CATEGORIAS c ON c.Id = a.IdCategoria
+                LEFT JOIN IMAGENES i   ON i.IdArticulo = a.Id
                 ORDER BY a.Id, i.Id;");
+
 
                 conectar.ejecutarLectura();
 
@@ -71,9 +75,20 @@ namespace negocio
                             Id = idActual,
                             Codigo = (string)conectar.Lector["Codigo"],
                             Nombre = (string)conectar.Lector["Nombre"],
-                            Descripcion = (string)conectar.Lector["Descripcion"],
+                            Descripcion = Convert.ToString(conectar.Lector["Descripcion"]),
                             IdMarca = (int)conectar.Lector["IdMarca"],
                             IdCategoria = (int)conectar.Lector["IdCategoria"],
+                            Marca = new Marca()
+                            {
+                                Id = (int)conectar.Lector["IdMarca"],
+                                Descripcion = Convert.ToString(conectar.Lector["MarcaDescripcion"])
+                            },
+                            Categoria = new Categoria()
+                            {
+                                Id = (int)conectar.Lector["IdCategoria"],
+                                Descripcion = Convert.ToString(conectar.Lector["CategoriaDescripcion"])
+                            },
+
                             Precio = (decimal)conectar.Lector["Precio"],
                             Imagenes = new List<Imagen>()
                         };

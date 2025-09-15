@@ -41,6 +41,8 @@ namespace Presentacion
                     ArticuloNegocio negocio = new ArticuloNegocio();
                     listaArticulos = negocio.listar();
                     dgvArticulos.DataSource = listaArticulos;
+                    dgvArticulos.Columns["IdMarca"].Visible = false;
+                    dgvArticulos.Columns["IdCategoria"].Visible = false;
                     break;
 
                 case TipoListado.Marca:

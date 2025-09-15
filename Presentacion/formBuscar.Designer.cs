@@ -211,6 +211,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvResultados);
             this.Name = "formBuscar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formBuscar";
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();
             this.ResumeLayout(false);

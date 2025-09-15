@@ -72,6 +72,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvResultados);
             this.Name = "formEliminar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formEliminar";
             this.Load += new System.EventHandler(this.formEliminar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();

@@ -93,6 +93,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
             this.Name = "formModificarMarcaCat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formModificarMarcaCat";
             this.Load += new System.EventHandler(this.formModificarMarcaCat_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();

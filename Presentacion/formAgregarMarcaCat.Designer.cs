@@ -82,6 +82,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "formAgregarMarcaCat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formAgregarMarcaCat";
             this.Load += new System.EventHandler(this.formAgregarMarcaCat_Load);
             this.ResumeLayout(false);

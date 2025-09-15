@@ -19,7 +19,8 @@ namespace dominio
 
 
         public List<Imagen> Imagenes { get; set; } = new List<Imagen>();
-
+        public Categoria Categoria { get; set; } = new Categoria();
+        public Marca Marca { get; set; } = new Marca(); 
 
 
 
