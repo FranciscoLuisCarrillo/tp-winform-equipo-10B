@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Resources;
 using System.Runtime.Remoting.Contexts;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 //using AccesoDatos;
@@ -12,20 +14,20 @@ using Acceso = AccesoDatos.Acceso;
 namespace negocio
 {
     public class ArticuloNegocio
+    {
+        public List<Articulo> listar()
         {
-            public List<Articulo> listar()
-            {
-                List<Articulo> lista = new List<Articulo>();
+            List<Articulo> lista = new List<Articulo>();
 
-                // INSTANCIA DE CLASE DE ACCESO A DATOS
-                Acceso conectar = new Acceso();
+            // INSTANCIA DE CLASE DE ACCESO A DATOS
+            Acceso conectar = new Acceso();
             // SE MIGRO ESTA LOGICA A CLASE ACCESODATOS
             //SqlConnection conexion = new SqlConnection();
             //SqlCommand comando = new SqlCommand();
             //SqlDataReader lector;
 
             try
-                {
+            {
                 // ESTA LOGICA SE MIGRA A CLASE ACCESODATOS
                 ///lo primero es la el servidor donde se conecta, lo segundo es la base de datos y lo tercero es la seguridad
                 //conexion.ConnectionString = "Server=TOMAS; Database=CATALOGO_P3_DB; Integrated Security=True; TrustServerCertificate=True;";
@@ -121,9 +123,11 @@ namespace negocio
             }
         }
 
-            public int agregar(Articulo nuevo)
+        public int agregar(Articulo nuevo)
 
         {
+            validarArticuloNegocio(nuevo, false); // Validamos el articulo antes de agregarlo
+
             Acceso conectar = new Acceso();
             var urls = nuevo.Imagenes.Select(img => img.ImagenUrl).ToList(); // Extrae las URLs de las imágenes
             int idInsertado = 0;
@@ -138,12 +142,12 @@ namespace negocio
                 // prueba de seteo
                 conectar.setAtributo("@codigo", nuevo.Codigo);
                 conectar.setAtributo("@nombre", nuevo.Nombre);
-                conectar.setAtributo("@descripcion", nuevo.Descripcion);
+                conectar.setAtributo("@descripcion", (object)nuevo.Descripcion?? DBNull.Value);
                 conectar.setAtributo("@idMarca", nuevo.IdMarca);
                 conectar.setAtributo("@idCategoria", nuevo.IdCategoria);
-                conectar.setAtributo("@precio", nuevo.Precio); 
+                conectar.setAtributo("@precio", nuevo.Precio);
 
-            
+
                 idInsertado = (int)conectar.ejecutarEscalar();
                 nuevo.Id = idInsertado; // asigna el ID generado al objeto Articulo
             }
@@ -164,8 +168,9 @@ namespace negocio
             return idInsertado;
         }
 
-            public void AgregarImagenes(int articuloId, List<string> imagenUrls) //Metodo para agregar las imagenes
+        public void AgregarImagenes(int articuloId, List<string> imagenUrls) //Metodo para agregar las imagenes
         {
+        
             Acceso conectar = new Acceso();
             try
             {
@@ -187,7 +192,7 @@ namespace negocio
             }
         }
         // Elimina el dato de forma fisica en la DDBB (usar con cuidaod se pierde el registro)
-            public void eliminar(int id)
+        public void eliminar(int id)
         {
             Acceso conectar = new Acceso();
             try
@@ -267,7 +272,7 @@ namespace negocio
             }
         }
 
-        public List<Articulo> filtrarMarca (int idMarca)
+        public List<Articulo> filtrarMarca(int idMarca)
         {
             List<Articulo> lista = new List<Articulo>();
             Acceso conectar = new Acceso();
@@ -283,7 +288,7 @@ namespace negocio
                     aux.Id = conectar.Lector.GetInt32(0);
                     aux.Codigo = (string)conectar.Lector["Codigo"];
                     aux.Nombre = (string)conectar.Lector["Nombre"];
-                    aux.Descripcion = (string)conectar.Lector["Descripcion"];
+                    aux.Descripcion = Convert.ToString(conectar.Lector["Descripcion"]);
                     aux.IdMarca = (int)conectar.Lector["IdMarca"];
                     aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
                     aux.Precio = (decimal)conectar.Lector["Precio"];
@@ -302,20 +307,22 @@ namespace negocio
         }
 
 
-            public void modificar(Articulo articulo)
+        public void modificar(Articulo articulo)
         {
+            if (articulo.Id <= 0) throw new Exception("El ID del artículo no es válido para la modificación.");
+            validarArticuloNegocio(articulo, true); // Validamos el articulo antes de modificarlo
             Acceso conectar = new Acceso();
             try
             {
                 conectar.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Precio = @Precio WHERE Id = @Id");
                 conectar.setAtributo("@Codigo", articulo.Codigo);
                 conectar.setAtributo("@Nombre", articulo.Nombre);
-                conectar.setAtributo("@Descripcion", articulo.Descripcion);
+                conectar.setAtributo("@Descripcion", (object)articulo.Descripcion?? DBNull.Value);
                 conectar.setAtributo("@IdMarca", articulo.IdMarca);
                 conectar.setAtributo("@IdCategoria", articulo.IdCategoria);
                 conectar.setAtributo("@Precio", articulo.Precio);
                 conectar.setAtributo("@Id", articulo.Id);
-                
+
                 int filasAfectadas = conectar.ejecutarAccion();
                 if (filasAfectadas == 0) // Verifica si alguna fila fue afectada
                 {
@@ -335,6 +342,8 @@ namespace negocio
 
         public void modificarImagenes(Articulo articulo)
         {
+            if(articulo.Id <= 0) throw new Exception("El ID del artículo no es válido para la modificación.");
+            validarArticuloNegocio(articulo, true); // Validamos el articulo antes de modificarlo
             modificar(articulo); //Modificamos los datos del articulo primero
             var urls = (articulo.Imagenes ?? new List<Imagen>()) // Aca nos aseguramos que la lista no sea nula
                     .Select(i => i.ImagenUrl)
@@ -367,7 +376,64 @@ namespace negocio
                 conectar.cerrarConexion();
             }
         }
+        public void validarArticuloNegocio(Articulo articulo, bool esModificacion)
+        {
+            if (articulo == null) throw new Exception("El artículo no puede ser nulo.");
+
+            // Trim para eliminar espacios en blanco al inicio y al final
+            articulo.Codigo = articulo.Codigo?.Trim();
+            articulo.Nombre = articulo.Nombre?.Trim();
+            articulo.Descripcion = articulo.Descripcion?.Trim();
+
+            // Validaciones
+            if (string.IsNullOrWhiteSpace(articulo.Codigo)) throw new Exception("El código del artículo no puede estar vacío.");
+            if (string.IsNullOrWhiteSpace(articulo.Nombre)) throw new Exception("El nombre del artículo no puede estar vacío.");
+            if (articulo.IdMarca <= 0) throw new Exception("Debe seleccionar una marca válida.");
+            if (articulo.IdCategoria <= 0) throw new Exception("Debe seleccionar una categoría válida.");
+            if (articulo.Precio < 0) throw new Exception("El precio no puede ser negativo.");
+
+            if(ExisteCodigo(articulo.Codigo, esModificacion ? articulo.Id : (int?)null))
+                throw new Exception("El código del artículo ya existe.");
+
+            articulo.Imagenes = (articulo.Imagenes ?? new List<Imagen>())
+            .Where(img => !string.IsNullOrWhiteSpace(img.ImagenUrl))
+            .Select(img => img.ImagenUrl.Trim())
+            .Where(EsUrlValida)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Select(Url => new Imagen { IdArticulo = articulo.Id, ImagenUrl = Url })
+            .ToList();
+
+            if (articulo.Imagenes.Any(img => img.ImagenUrl.Length > 1000))
+                throw new Exception("Una o más URLs de imágenes exceden el límite de 1000 caracteres.");
+        }
+
+        private bool EsUrlValida(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+                return false;
+            return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult)
+                   && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
+
+        private bool ExisteCodigo(string codigo, int? idExcluido)
+        {
+            Acceso conectar = new Acceso();
+            try
+            {
+                conectar.setearConsulta(@"SELECT COUNT(1) FROM ARTICULOS WHERE Codigo=@Codigo AND (@Id IS NULL OR Id<>@Id)");
+                conectar.setAtributo("@Codigo", codigo);
+                conectar.setAtributo("@Id", (object)idExcluido ?? DBNull.Value);
+                return Convert.ToInt32(conectar.ejecutarEscalar()) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conectar.cerrarConexion();
+            }
         }
     }
 
-    
+    }

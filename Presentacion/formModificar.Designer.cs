@@ -53,6 +53,7 @@
             // 
             // boxCategoria
             // 
+            this.boxCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.boxCategoria.FormattingEnabled = true;
             this.boxCategoria.Items.AddRange(new object[] {
             "Celulares",
@@ -66,6 +67,7 @@
             // 
             // boxMarca
             // 
+            this.boxMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.boxMarca.FormattingEnabled = true;
             this.boxMarca.Items.AddRange(new object[] {
             "Samsung",

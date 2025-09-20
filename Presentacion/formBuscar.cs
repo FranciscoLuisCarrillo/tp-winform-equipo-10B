@@ -19,30 +19,30 @@ namespace Presentacion
             InitializeComponent();
             List<Marca> marcas = new List<Marca>
             {
-                new Marca {Id = 0, Descripcion = "" },
-                new Marca{ Id = 1, Descripcion = "Samsung" },
-                new Marca{ Id = 2, Descripcion = "Apple" },
-                new Marca{ Id = 3, Descripcion = "Sony" },
+                new Marca{ Id = 0, Descripcion = "Samsung" },
+                new Marca{ Id = 1, Descripcion = "Apple" },
+                new Marca{ Id = 2, Descripcion = "Sony" },
                 new Marca{ Id = 3, Descripcion = "Huawei" },
-                new Marca{ Id = 3, Descripcion = "Motorola" },
+                new Marca{ Id = 4, Descripcion = "Motorola" },
 
              };
 
             boxMarca.DataSource = marcas;
             boxMarca.DisplayMember = "Descripcion";
             boxMarca.ValueMember = "Id";
+            boxMarca.SelectedIndex = -1;
 
             List<Categoria> categorias = new List<Categoria>
             { 
-                new Categoria { Id = 0, Descripcion = "" },
-                new Categoria{ Id = 1, Descripcion = "Celulares" },
-                new Categoria{ Id = 2, Descripcion = "Televisores" },
-                new Categoria{ Id = 3, Descripcion = "Media" },
-                new Categoria{ Id = 4, Descripcion = "Audio" },
+                new Categoria{ Id = 0, Descripcion = "Celulares" },
+                new Categoria{ Id = 1, Descripcion = "Televisores" },
+                new Categoria{ Id = 2, Descripcion = "Media" },
+                new Categoria{ Id = 3, Descripcion = "Audio" },
              };
             boxCategoria.DataSource = categorias;
             boxCategoria.DisplayMember = "Descripcion";
             boxCategoria.ValueMember = "Id";
+            boxCategoria.SelectedIndex = -1;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
