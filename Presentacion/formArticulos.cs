@@ -40,5 +40,11 @@ namespace Presentacion
             formEliminar formEliminar = new formEliminar();
             formEliminar.ShowDialog();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            formAgregar formAgregar = new formAgregar();
+            formAgregar.ShowDialog();
+        }
     }
 }
