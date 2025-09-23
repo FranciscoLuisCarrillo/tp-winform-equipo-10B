@@ -34,5 +34,11 @@ namespace Presentacion
             formEliminarMarcaCat formEliminar = new formEliminarMarcaCat("Marca");
             formEliminar.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            formAgregarMarcaCat formAgregar = new formAgregarMarcaCat("Marca");
+            formAgregar.ShowDialog();
+        }
     }
 }
