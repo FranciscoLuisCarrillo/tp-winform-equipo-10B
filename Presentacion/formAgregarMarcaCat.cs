@@ -13,9 +13,10 @@ namespace Presentacion
     public partial class formAgregarMarcaCat : Form
     {
         public String tipo;
-        public formAgregarMarcaCat()
+        public formAgregarMarcaCat(string tipo)
         {
             InitializeComponent();
+            this.tipo = tipo;
         }
 
         private void formAgregarMarcaCat_Load(object sender, EventArgs e)
