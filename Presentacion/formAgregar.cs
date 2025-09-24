@@ -30,6 +30,7 @@ namespace Presentacion
             boxMarca.DataSource = marcas;          
             boxMarca.DisplayMember = "Descripcion";     
             boxMarca.ValueMember = "Id";
+            boxMarca.SelectedIndex = -1;
 
             List<Categoria> categorias = new List<Categoria>
             {
@@ -41,6 +42,7 @@ namespace Presentacion
             boxCategoria.DataSource = categorias;          
             boxCategoria.DisplayMember = "Descripcion";    
             boxCategoria.ValueMember = "Id";
+            boxCategoria.SelectedIndex = -1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -96,7 +98,7 @@ namespace Presentacion
 
         private void btnAgregarUrl_Click(object sender, EventArgs e)
         {
-            var url = txtUrl.Text?.Trim(); //
+            var url = txtUrl.Text?.Trim(); 
             if (string.IsNullOrEmpty(url))
             {
                 MessageBox.Show("Ingrese una URL válida.");

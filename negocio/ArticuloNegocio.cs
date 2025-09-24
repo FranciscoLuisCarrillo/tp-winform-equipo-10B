@@ -214,52 +214,62 @@ namespace negocio
 
         public List<Articulo> Buscar(string nombre, int? idMarca, int? idCategoria, decimal? precioMax)
         {
-            List<Articulo> lista = new List<Articulo>();
-            Acceso conectar = new Acceso();
+            var lista = new List<Articulo>();
+            var conectar = new Acceso();
 
             try
             {
-                string consulta = "SELECT Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio " +
-                                  "FROM ARTICULOS WHERE 1=1";
+                var consulta = @"
+            SELECT  a.Id,
+                    a.Codigo,
+                    a.Nombre,
+                    a.Descripcion,
+                    a.IdMarca,
+                    m.Descripcion AS MarcaDescripcion,
+                    a.IdCategoria,
+                    c.Descripcion AS CategoriaDescripcion,
+                    a.Precio
+            FROM ARTICULOS a
+            LEFT JOIN MARCAS m     ON m.Id = a.IdMarca
+            LEFT JOIN CATEGORIAS c ON c.Id = a.IdCategoria
+            WHERE 1=1";
 
-                if (!string.IsNullOrEmpty(nombre))
-                    consulta += " AND Nombre LIKE @Nombre";
-
-                if (idMarca.HasValue)
-                    consulta += " AND IdMarca = @IdMarca";
-
-                if (idCategoria.HasValue)
-                    consulta += " AND IdCategoria = @IdCategoria";
-
-                if (precioMax.HasValue)
-                    consulta += " AND Precio <= @PrecioMax";
+                if (!string.IsNullOrEmpty(nombre)) consulta += " AND a.Nombre LIKE @Nombre";
+                if (idMarca.HasValue) consulta += " AND a.IdMarca = @IdMarca";
+                if (idCategoria.HasValue) consulta += " AND a.IdCategoria = @IdCategoria";
+                if (precioMax.HasValue) consulta += " AND a.Precio <= @PrecioMax";
 
                 conectar.setearConsulta(consulta);
-
-                if (!string.IsNullOrEmpty(nombre))
-                    conectar.setAtributo("@Nombre", "%" + nombre + "%");
-
-                if (idMarca.HasValue)
-                    conectar.setAtributo("@IdMarca", idMarca.Value);
-
-                if (idCategoria.HasValue)
-                    conectar.setAtributo("@IdCategoria", idCategoria.Value);
-
-                if (precioMax.HasValue)
-                    conectar.setAtributo("@PrecioMax", precioMax.Value);
+                if (!string.IsNullOrEmpty(nombre)) conectar.setAtributo("@Nombre", "%" + nombre + "%");
+                if (idMarca.HasValue) conectar.setAtributo("@IdMarca", idMarca.Value);
+                if (idCategoria.HasValue) conectar.setAtributo("@IdCategoria", idCategoria.Value);
+                if (precioMax.HasValue) conectar.setAtributo("@PrecioMax", precioMax.Value);
 
                 conectar.ejecutarLectura();
 
                 while (conectar.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.Id = conectar.Lector.GetInt32(0);
-                    aux.Codigo = (string)conectar.Lector["Codigo"];
-                    aux.Nombre = (string)conectar.Lector["Nombre"];
-                    aux.Descripcion = (string)conectar.Lector["Descripcion"];
-                    aux.IdMarca = (int)conectar.Lector["IdMarca"];
-                    aux.IdCategoria = (int)conectar.Lector["IdCategoria"];
-                    aux.Precio = (decimal)conectar.Lector["Precio"];
+                    var aux = new Articulo
+                    {
+                        Id = (int)conectar.Lector["Id"],
+                        Codigo = Convert.ToString(conectar.Lector["Codigo"]), 
+                        Nombre = Convert.ToString(conectar.Lector["Nombre"]),
+                        Descripcion = Convert.ToString(conectar.Lector["Descripcion"]),
+                        IdMarca = conectar.Lector["IdMarca"] is DBNull ? 0 : (int)conectar.Lector["IdMarca"],
+                        IdCategoria = conectar.Lector["IdCategoria"] is DBNull ? 0 : (int)conectar.Lector["IdCategoria"],
+                        Precio = (decimal)conectar.Lector["Precio"],
+                        Marca = new Marca
+                        {
+                            Id = conectar.Lector["IdMarca"] is DBNull ? 0 : (int)conectar.Lector["IdMarca"],
+                            Descripcion = conectar.Lector["MarcaDescripcion"] is DBNull ? "" : Convert.ToString(conectar.Lector["MarcaDescripcion"])
+                        },
+                        Categoria = new Categoria
+                        {
+                            Id = conectar.Lector["IdCategoria"] is DBNull ? 0 : (int)conectar.Lector["IdCategoria"],
+                            Descripcion = conectar.Lector["CategoriaDescripcion"] is DBNull ? "" : Convert.ToString(conectar.Lector["CategoriaDescripcion"])
+                        },
+                        
+                    };
 
                     lista.Add(aux);
                 }
@@ -271,6 +281,7 @@ namespace negocio
                 conectar.cerrarConexion();
             }
         }
+
 
         public List<Articulo> filtrarMarca(int idMarca)
         {
